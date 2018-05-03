@@ -3,6 +3,8 @@ import { Route, Link } from 'react-router-dom';
 
 import * as BooksAPI from '../server/BooksAPI';
 import '../styles/App.css';
+import Search from './Search';
+
 import WantToRead from './WantToRead';
 import Read from './Read';
 import CurrentlyReading from './CurrentlyReading';
@@ -15,34 +17,72 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    showSearchPage: false
+    showSearchPage: false,
+    books: []
   }
-
+  componentDidMount() {
+    BooksAPI.getAll()//fetchind the data from remote server
+      .then((books) => { //with the answer we're calling setState
+        this.setState(() => ({
+          books: books
+        }));
+      });
+  }
+  clickBackSearch = () => {
+    this.setState(() => ({
+      showSearchPage : false
+    }));
+    console.log(4);
+  }
   render() {
+    console.log( this.state.books);
     return (
       <div className="app">
-        
-
+        <Route
+          exact
+          path='/search'
+          render={() => (
+            <Search 
+              onClickBackSearch={this.clickBackSearch} 
+            />
+          )}
+        />
         <div className="list-books">
-          <div className="list-books-title">
-            <h1>MyReads</h1>
-          </div>
+          {
+            this.state.showSearchPage === false ? (
+              <div className="list-books-title">
+                <h1>MyReads</h1>
+              </div> 
+            ) :
+            () =>this.setState({ showSearchPage: true })
+          }
           <div className="list-books-content">
             <div>
-
-              {/* want to read */}
-              <WantToRead />
-              
-              {/* Currently Reading   */}
-              <CurrentlyReading />
-              
-              {/* Want to Read*/}
-              <Read />
-
+              <Route
+                exact
+                path='/' 
+                render={() => (
+                  <div>
+                    <WantToRead />
+                    <CurrentlyReading />
+                    <Read />
+                  </div>
+               )}
+              />
             </div>
           </div>
           <div className="open-search">
-            <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+            <Link
+              to={{
+              pathname: '/search',
+            }}
+              onClick={() => this.setState(() => ({
+              showSearchPage : true
+            }))
+             } 
+            >
+              Add a book
+            </Link>
           </div>
         </div>
       </div>
