@@ -34,6 +34,9 @@ class BooksApp extends React.Component {
     }));
     console.log(4);
   }
+  handleChange = (e) => {
+    e.target;
+  }
   render() {
     console.log( this.state.books);
     return (
@@ -44,6 +47,8 @@ class BooksApp extends React.Component {
           render={() => (
             <Search 
               onClickBackSearch={this.clickBackSearch} 
+              books={this.state.books}
+              onHandleChange={() => this.handleChange()}
             />
           )}
         />
@@ -63,9 +68,9 @@ class BooksApp extends React.Component {
                 path='/' 
                 render={() => (
                   <div>
-                    <WantToRead />
-                    <CurrentlyReading />
-                    <Read />
+                    <WantToRead onBookWantToRead='' />
+                    <CurrentlyReading onBookCurrentlyReading='' />
+                    <Read onBookRead='' />
                   </div>
                )}
               />

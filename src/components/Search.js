@@ -4,10 +4,18 @@ import { Link } from 'react-router-dom';
 
 
 class Search extends Component {
-  //static propTypes = {
-    //propName: PropTypes.type.isRequired,
-  //}
+  static propTypes = {
+    onClickBackSearch: PropTypes.func.isRequired,
+  }
+  state = {
+    query: '',
+  }
   render() {
+    const {books} = this.state;
+    const {onClickBackSearch} = this.props;
+
+    const showingBooks = '';
+
     return (
       <div>
         <div className="search-books">
@@ -15,7 +23,7 @@ class Search extends Component {
             <Link
               to='/'
               className="close-search"
-              onClick={() => this.onClickBackSearch()}
+              onClick={() => this.props.onClickBackSearch()}
             >
               Close
             </Link>
@@ -29,7 +37,12 @@ class Search extends Component {
                 However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                 you don't find a specific author or title. Every search is limited by search terms.
                 */}
-              <input type="text" placeholder="Search by title or author" />
+
+              <input 
+                type="text" 
+                placeholder="Search by title or author" 
+                onChange={this.props.onHandleChange}
+              />
 
             </div>
           </div>
