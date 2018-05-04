@@ -32,10 +32,7 @@ class BooksApp extends React.Component {
     this.setState(() => ({
       showSearchPage : false
     }));
-    console.log(4);
-  }
-  handleChange = (e) => {
-    e.target;
+		console.log(4);
   }
   render() {
     console.log( this.state.books);
@@ -48,7 +45,6 @@ class BooksApp extends React.Component {
             <Search 
               onClickBackSearch={this.clickBackSearch} 
               books={this.state.books}
-              onHandleChange={() => this.handleChange()}
             />
           )}
         />

@@ -10,11 +10,15 @@ class Search extends Component {
   state = {
     query: '',
   }
+	updateQuery = (event) => {
+		console.log(event);
+    this.setState(() => ({
+      query : event.trim()
+    }))
+	};
   render() {
-    const {books} = this.state;
-    const {onClickBackSearch} = this.props;
-
-    const showingBooks = '';
+    const { query} = this.state;
+    const { books} = this.props;
 
     return (
       <div>
@@ -29,6 +33,7 @@ class Search extends Component {
             </Link>
             {/* <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a> */}
             <div className="search-books-input-wrapper">
+
               {/*
                 NOTES: The search from BooksAPI is limited to a particular set of search terms.
                 You can find these search terms here:
@@ -38,16 +43,44 @@ class Search extends Component {
                 you don't find a specific author or title. Every search is limited by search terms.
                 */}
 
-              <input 
-                type="text" 
-                placeholder="Search by title or author" 
-                onChange={this.props.onHandleChange}
+              <input
+                type="text"
+                placeholder="Search by title or author"
+                onChange={event => this.updateQuery(event.target.value)}
               />
-
             </div>
           </div>
           <div className="search-books-results">
-            <ol className="books-grid" />
+            <ol className="books-grid">
+              {
+                books.map( (book) => (
+                  <li key={book.id}>
+                    <div className="book">
+                    <div className="book-top">
+                      <div className="book-cover"
+                        style={{
+                        width: 128,
+                        height: 192,
+                        backgroundImage: `url( ${book.imageLinks.thumbnail} )`
+                        }}
+                      />
+                      <div className="book-shelf-changer">
+                        <select onSubmit={this.submitBook}>
+                          <option value="none" disabled>Move to...</option>
+                          <option value="currentlyReading">Currently Reading</option>
+                          <option value="wantToRead">Want to Read</option>
+                          <option value="read">Read</option>
+                          <option value="none">None</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div className="book-title">The Hobbit</div>
+                    <div className="book-authors">J.R.R. Tolkien</div>
+                  </div>
+                  </li>
+                ))
+              }
+            </ol>
           </div>
         </div>
       </div>
