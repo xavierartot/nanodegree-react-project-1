@@ -19,7 +19,13 @@ class Search extends Component {
   render() {
     const { query} = this.state;
     const { books} = this.props;
+    const empty = []
 
+    const updateBook = query !== '' ? books.filter( (book) => {
+      return book.title.toLowerCase().includes(query.toLowerCase())
+    }) : empty 
+
+    console.log(updateBook);
     return (
       <div>
         <div className="search-books">
@@ -53,7 +59,7 @@ class Search extends Component {
           <div className="search-books-results">
             <ol className="books-grid">
               {
-                books.map( (book) => (
+                updateBook.map( book => (
                   <li key={book.id}>
                     <div className="book">
                     <div className="book-top">
@@ -74,8 +80,8 @@ class Search extends Component {
                         </select>
                       </div>
                     </div>
-                    <div className="book-title">The Hobbit</div>
-                    <div className="book-authors">J.R.R. Tolkien</div>
+                    <div className="book-title">{book.title}</div>
+                    <div className="book-authors">{book.authors[0]}</div>
                   </div>
                   </li>
                 ))
