@@ -18,21 +18,41 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     showSearchPage: false,
-    books: []
+    books: [],
+    bookSelected : '',
   }
   componentDidMount() {
     BooksAPI.getAll()//fetchind the data from remote server
       .then((books) => { //with the answer we're calling setState
         this.setState(() => ({
-          books: books
+          books
         }));
       });
   }
-  clickBackSearch = () => {
+
+  handleSearchChange = () => {
     this.setState(() => ({
       showSearchPage : false
     }));
-		console.log(4);
+  }
+
+  handleChangeBook = (e) => {
+    const value = e.target.value, 
+      id = e.target.id;
+
+    this.setState(() => ({
+      bookSelected : value
+    }))
+
+    console.log(id, value);
+
+    BooksAPI.update(id, value)
+      .then( (obj) => { 
+        console.log(id, value);
+        console.log(obj);
+      });
+    
+    //console.log(BooksAPI.update(id, value));
   }
   render() {
     console.log( this.state.books);
@@ -43,7 +63,7 @@ class BooksApp extends React.Component {
           path='/search'
           render={() => (
             <Search 
-              onClickBackSearch={this.clickBackSearch} 
+              onClickBackSearch={this.handleSearchChange} 
               books={this.state.books}
             />
           )}
@@ -53,20 +73,27 @@ class BooksApp extends React.Component {
             this.state.showSearchPage === false ? (
               <div className="list-books-title">
                 <h1>MyReads</h1>
-              </div> 
+              </div>
             ) :
             () =>this.setState({ showSearchPage: true })
           }
           <div className="list-books-content">
             <div>
+              {/* route each Book component */}
               <Route
                 exact
-                path='/' 
+                path='/'
                 render={() => (
                   <div>
-                    <WantToRead onBookWantToRead='' />
-                    <CurrentlyReading onBookCurrentlyReading='' />
-                    <Read onBookRead='' />
+                    <WantToRead
+                      onChangeBook={this.handleChangeBook}
+                    />
+                    <CurrentlyReading
+                      onBookCurrentlyReading=''
+                    />
+                    <Read
+                      onBookRead=''
+                    />
                   </div>
                )}
               />
@@ -78,9 +105,9 @@ class BooksApp extends React.Component {
               pathname: '/search',
             }}
               onClick={() => this.setState(() => ({
-              showSearchPage : true
-            }))
-             } 
+                showSearchPage : true
+              }))
+              }
             >
               Add a book
             </Link>

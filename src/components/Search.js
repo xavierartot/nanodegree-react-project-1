@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-
 class Search extends Component {
   static propTypes = {
     onClickBackSearch: PropTypes.func.isRequired,
