@@ -43,19 +43,15 @@ class BooksApp extends React.Component {
     this.setState(() => ({
       bookSelected : value
     }))
+    //console.log(id, value);
 
-    console.log(id, value);
-
-    BooksAPI.update(id, value)
+    BooksAPI.update({id}, value)
       .then( (obj) => { 
-        console.log(id, value);
         console.log(obj);
       });
-    
-    //console.log(BooksAPI.update(id, value));
   }
   render() {
-    console.log( this.state.books);
+    const {books} = this.state;
     return (
       <div className="app">
         <Route
@@ -64,7 +60,7 @@ class BooksApp extends React.Component {
           render={() => (
             <Search 
               onClickBackSearch={this.handleSearchChange} 
-              books={this.state.books}
+              books={books}
             />
           )}
         />
@@ -81,18 +77,20 @@ class BooksApp extends React.Component {
             <div>
               {/* route each Book component */}
               <Route
-                exact
-                path='/'
+                exact path='/'
                 render={() => (
                   <div>
                     <WantToRead
                       onChangeBook={this.handleChangeBook}
+                      books={books}
                     />
                     <CurrentlyReading
-                      onBookCurrentlyReading=''
+                      onBookCurrentlyReading={this.handleChangeBook}
+                      books={books}
                     />
                     <Read
-                      onBookRead=''
+                      onBookRead={this.handleChangeBook}
+                      books={books}
                     />
                   </div>
                )}

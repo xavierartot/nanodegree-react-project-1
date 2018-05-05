@@ -7,35 +7,59 @@ class WantToRead extends Component {
     console.log(e.target);
   }
   render() {
+    //console.log( books);
+    //BooksAPI.get('IOejDAAAQBAJ').then(data => {
+      //console.log(data);
+      //[data].map( (element) => {
+        //return console.log(element.shelf, element.id)
+      //})
+    //})
+    const booksWantToRead = this.props.books !== '' && 
+      this.props.books.filter( element => element.shelf === 'wantToRead')
+      
+    console.log(booksWantToRead) 
+
     return (
       <div>
         <div className="bookshelf">
           <h2 className="bookshelf-title">Want to Read</h2>
           <div className="bookshelf-books">
-            <ol className="books-grid">
-              <li>
-                <div className="book">
-                  <div className="book-top">
+              <ol className="books-grid">
 
-                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url("http://books.google.com/books/content?id=uu1mC6zWNTwC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73pGHfBNSsJG9Y8kRBpmLUft9O4BfItHioHolWNKOdLavw-SLcXADy3CPAfJ0_qMb18RmCa7Ds1cTdpM3dxAGJs8zfCfm8c6ggBIjzKT7XR5FIB53HHOhnsT7a0Cc-PpneWq9zX&source=gbs_api")' }} />
+                {
+                booksWantToRead.map( (element) => {
+                return (
+                  <li key={element.id}>
+                    <div className="book">
+                      <div className="book-top">
+                        <div className="book-cover" 
+                          style={{ 
+                            width: 128, 
+                            height: 193, 
+                            backgroundImage: `url(${element.imageLinks.thumbnail})` 
+                          }} 
+                        />
+                        <div className="book-shelf-changer">
+                          <select onChange={ this.props.onChangeBook} id={element.id}>
+                            <option value="none" disabled>Move to...</option>
+                            <option value="currentlyReading">Currently Reading</option>
+                            <option value="wantToRead">Want to Read</option>
+                            <option value="read">Read</option>
+                            <option value="none">None</option>
+                          </select>
 
-
-                    <div className="book-shelf-changer">
-                      <select onChange={ this.props.onChangeBook} id="nggnmAEACAAJ">
-                        <option value="none" disabled>Move to...</option>
-                        <option value="currentlyReading">Currently Reading</option>
-                        <option value="wantToRead">Want to Read</option>
-                        <option value="read">Read</option>
-                        <option value="none">None</option>
-                      </select>
-
+                        </div>
+                      </div>
+                      <div className="book-title">{element.title}</div>
+                      <div className="book-authors">{element.authors[0]}</div>
                     </div>
-                  </div>
-                  <div className="book-title">1776</div>
-                  <div className="book-authors">David McCullough</div>
-                </div>
-              </li>
-            </ol>
+                  </li>
+                )
+                })
+                }
+
+
+              </ol>
           </div>
         </div>
       </div>
