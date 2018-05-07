@@ -1,64 +1,64 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
 
-//API
+// API
 import * as BooksAPI from '../server/BooksAPI';
-//CSS
+// CSS
 import '../styles/App.css';
-//COMPONENT
+// COMPONENT
 import Search from './Search';
 import Book from './Book';
 
-class BooksApp extends React.Component {
-  //init state
+export default class BooksApp extends React.Component {
+  // init state
   state = {
     books: [],
-    bookSelected : '',
+    bookSelected: '',
   }
 
-  componentDidMount() {//TODO: fetch data after the component mouted
-    BooksAPI.getAll()//fetchind the data from remote server
-      .then((books) => { //with the answer we're calling setState
+  componentDidMount() { // TODO: fetch data after the component mouted
+    BooksAPI.getAll()// fetchind the data from remote server
+      .then((books) => { // with the answer we're calling setState
         this.setState(() => ({
-          books
+          books,
         }));
       });
   }
 
 
-  handleChangeBook = (e) => {//TODO: update a <select> element the states
+  handleChangeBook = (e) => { // TODO: update a <select> element the states
     const value = e.target.value,
       id = e.target.id;
     console.log(e.target);
 
 
-    this.setState((prev) => ({//TODO: update state bookSelected
-      bookSelected : prev.value
-    }))
+    this.setState(prev => ({// TODO: update state bookSelected
+      bookSelected: prev.value,
+    }));
 
 
-    BooksAPI.update({id}, value)//TODO: update BooksAPI
-      .then( (obj) => {
-        //console.log(obj);
+    BooksAPI.update({ id }, value)// TODO: update BooksAPI
+      .then((obj) => {
+        // console.log(obj);
       });
 
-    //TODO: update books in the state
-    BooksAPI.getAll()//fetchind the data from remote server
-      .then((books) => { //with the answer we're calling setState
+    // TODO: update books in the state
+    BooksAPI.getAll()// fetchind the data from remote server
+      .then((books) => { // with the answer we're calling setState
         this.setState(() => ({
-          books
+          books,
         }));
       });
   }
 
   render() {
-    const {books} = this.state;
+    const { books } = this.state;
 
     return (
       <div className="app">
         <Route
           exact
-          path='/search'
+          path="/search"
           render={() => (
             <Search
               books={books}
@@ -67,7 +67,8 @@ class BooksApp extends React.Component {
           )}
         />
         <Route
-          exact path='/'
+          exact
+          path="/"
           render={() => (
             <div className="list-books">
               <div className="list-books-title">
@@ -75,39 +76,38 @@ class BooksApp extends React.Component {
               </div>
               <div className="list-books-content">
                 <div>
-                    <div>
-                      <Book
-                        onChangeBook={this.handleChangeBook}
-                        books={books}
-                        title='wantToRead'
-                        titleHTML='Want To Read'
-                      />
-                      <Book
-                        onChangeBook={this.handleChangeBook}
-                        books={books}
-                        title='currentlyReading'
-                        titleHTML='Currently Reading'
-                      />
-                      <Book
-                        onChangeBook={this.handleChangeBook}
-                        books={books}
-                        title='read'
-                        titleHTML='Read'
-                      />
-                    </div>
+                  <div>
+                    <Book
+                      onChangeBook={this.handleChangeBook}
+                      books={books}
+                      title="wantToRead"
+                      titleHTML="Want To Read"
+                    />
+                    <Book
+                      onChangeBook={this.handleChangeBook}
+                      books={books}
+                      title="currentlyReading"
+                      titleHTML="Currently Reading"
+                    />
+                    <Book
+                      onChangeBook={this.handleChangeBook}
+                      books={books}
+                      title="read"
+                      titleHTML="Read"
+                    />
+                  </div>
                 </div>
               </div>
               <div className="open-search">
-                <Link to='/search'>
+                <Link to="/search">
                   Add a book
                 </Link>
               </div>
             </div>
-          )} //render Route END
+          )} // render Route END
         />
       </div>
     );
   }
 }
 
-export default BooksApp;
