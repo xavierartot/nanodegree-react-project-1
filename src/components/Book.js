@@ -40,7 +40,7 @@ class WantToRead extends Component {
                             style={{
                               width: 128,
                               height: 193,
-                              backgroundImage: `url(${element.imageLinks.thumbnail})`,
+                              backgroundImage: element.imageLinks.thumbnail ? `url(${element.imageLinks.thumbnail})` : 'url(//via.placeholder.com/128x192)',
                             }}
                           />
                           <div className="book-shelf-changer">
@@ -57,7 +57,7 @@ class WantToRead extends Component {
                           </div>
                         </div>
                         <div className="book-title">{element.title}</div>
-                        <div className="book-authors">{element.authors[0]}</div>
+                        <div className="book-authors">{element.authors[0] ? element.authors[0] : ''}</div>
                       </div>
                     </li>
                   ), // render end

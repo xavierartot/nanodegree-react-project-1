@@ -83,7 +83,9 @@ export default class Search extends Component {
 	                      </div>
 	                    </div>
 	                    <div className="book-title">{element.title}</div>
-	                    <div className="book-authors">{element.authors[0]}</div>
+	                    <div className="book-authors">
+	                      <div className="book-authors">{element.authors[0] ? element.authors[0] : ''}</div>
+	                    </div>
 	                  </div>
 	                </li>
 	              ))
