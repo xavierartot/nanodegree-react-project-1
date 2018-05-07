@@ -10,18 +10,18 @@ class WantToRead extends Component {
     titleHTML    : PropTypes.string.isRequired,
   }
 
-  onChange = (e) => {
+  //TODO: call a method live in the controleur component
+  onChange = e => {
     this.props.onChangeBook(e.target.value);
     console.log(e.target.value);
   }
 
   render() {
     const	{onChangeBook, books, title, titleHTML} = this.props
+    //TODO: filter the book to match with the shelf
     const booksWantToRead = books !== '' &&
       books.filter( element => element.shelf === title)
 
-    //console.log(booksWantToRead)
-    //console.log('books', books)
     return (
       <div>
         <div className="bookshelf">
@@ -32,7 +32,6 @@ class WantToRead extends Component {
               booksWantToRead.map( (element) => {
                 return (
                   <li key={element.id}>
-                    <span>{element.shelf}</span>
                     <div className="book">
                       <div className="book-top">
                         <div className="book-cover"
@@ -43,7 +42,7 @@ class WantToRead extends Component {
                           }}
                         />
                         <div className="book-shelf-changer">
-                          <select onChange={ (e) => onChangeBook(e) } id={element.id} value={element.shelf}>
+                          <select onChange={ e => onChangeBook(e) } id={element.id} value={element.shelf}>
                             <option value="none" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>

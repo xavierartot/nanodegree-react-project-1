@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 class Search extends Component {
+  //TODO: init search state
   state = {
     query: '',
   }
@@ -11,21 +12,22 @@ class Search extends Component {
     books: PropTypes.array.isRequired
   }
 	updateQuery = (event) => {
-		console.log(event);
+		//console.log(event);
     this.setState(() => ({
       query : event.trim()
     }))
 	};
   render() {
-    const { query } = this.state;
-    const { books, onChangeBook } = this.props;
-    const empty = []
+    //TODO: destruture objects
+    const { query } = this.state,
+    { books, onChangeBook } = this.props
 
+    //TODO: filter the search
     const updateBook = query !== '' ? books.filter( (book) => {
       return book.title.toLowerCase().includes(query.toLowerCase())
-    }) : empty
+    }) : []
 
-    console.log(updateBook);
+    //console.log(updateBook);
     return (
       <div>
         <div className="search-books">
@@ -47,6 +49,7 @@ class Search extends Component {
           <div className="search-books-results">
             <ol className="books-grid">
               {
+                //TODO: map books filtered
                 updateBook.map( book => (
                   <li key={book.id}>
                     <div className="book">
