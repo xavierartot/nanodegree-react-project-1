@@ -12,7 +12,7 @@ class WantToRead extends Component {
 
   onChange = (e) => {
     this.props.onChangeBook(e.target.value);
-    console.log(e.target);
+    console.log(e.target.value);
   }
 
   render() {
@@ -20,10 +20,8 @@ class WantToRead extends Component {
     const booksWantToRead = books !== '' &&
       books.filter( element => element.shelf === title)
 
-    console.log(booksWantToRead)
-
-    console.log('books', books)
-
+    //console.log(booksWantToRead)
+    //console.log('books', books)
     return (
       <div>
         <div className="bookshelf">
@@ -34,6 +32,7 @@ class WantToRead extends Component {
               booksWantToRead.map( (element) => {
                 return (
                   <li key={element.id}>
+                    <span>{element.shelf}</span>
                     <div className="book">
                       <div className="book-top">
                         <div className="book-cover"
@@ -44,7 +43,7 @@ class WantToRead extends Component {
                           }}
                         />
                         <div className="book-shelf-changer">
-                          <select onChange={ (e) => onChangeBook(e) } id={element.id}>
+                          <select onChange={ (e) => onChangeBook(e) } id={element.id} value={element.shelf}>
                             <option value="none" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>

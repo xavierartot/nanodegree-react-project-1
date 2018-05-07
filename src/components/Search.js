@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 class Search extends Component {
   state = {
     query: '',
+  }
+  static propTypes = {
+    onChangeBook: PropTypes.func.isRequired,
+    books: PropTypes.array.isRequired
   }
 	updateQuery = (event) => {
 		console.log(event);
@@ -12,13 +17,13 @@ class Search extends Component {
     }))
 	};
   render() {
-    const { query} = this.state;
-    const { books} = this.props;
+    const { query } = this.state;
+    const { books, onChangeBook } = this.props;
     const empty = []
 
     const updateBook = query !== '' ? books.filter( (book) => {
       return book.title.toLowerCase().includes(query.toLowerCase())
-    }) : empty 
+    }) : empty
 
     console.log(updateBook);
     return (
@@ -32,16 +37,6 @@ class Search extends Component {
               Close
             </Link>
             <div className="search-books-input-wrapper">
-
-              {/*
-                NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                You can find these search terms here:
-                https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-                However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                you don't find a specific author or title. Every search is limited by search terms.
-                */}
-
               <input
                 type="text"
                 placeholder="Search by title or author"
@@ -64,7 +59,8 @@ class Search extends Component {
                         }}
                       />
                       <div className="book-shelf-changer">
-                        <select onSubmit={this.submitBook}>
+                        <select onChange={ e => onChangeBook(e) } id={book.id}
+                          value={book.shelf}>
                           <option value="none" disabled>Move to...</option>
                           <option value="currentlyReading">Currently Reading</option>
                           <option value="wantToRead">Want to Read</option>

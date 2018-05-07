@@ -26,6 +26,7 @@ class BooksApp extends React.Component {
   handleChangeBook = (e) => {
     const value = e.target.value, 
       id = e.target.id;
+    console.log(e.target);
 
     this.setState((prev) => ({
       bookSelected : prev.value
@@ -33,7 +34,7 @@ class BooksApp extends React.Component {
 
     BooksAPI.update({id}, value)
       .then( (obj) => { 
-        console.log(obj);
+        //console.log(obj);
       });
 
     //update books in the state
@@ -52,8 +53,12 @@ class BooksApp extends React.Component {
         <Route
           exact
           path='/search'
-          render={() => (<Search books={books}
-          />)}
+          render={() => (
+            <Search 
+              books={books}
+              onChangeBook={this.handleChangeBook}
+            />
+          )}
         />
         <Route
           exact path='/'
