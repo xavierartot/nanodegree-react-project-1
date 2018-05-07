@@ -1,19 +1,18 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
-
 // API
 import * as BooksAPI from '../server/BooksAPI';
 // CSS
 import '../styles/App.css';
 // COMPONENT
-import Search from './Search';
 import Book from './Book';
+import Search from './Search';
 
 export default class BooksApp extends React.Component {
   // init state
   state = {
     books: [],
-    bookSelected: '',
+    bookSelected: '', // use with select form
   }
 
   componentDidMount() { // TODO: fetch data after the component mouted

@@ -17,15 +17,23 @@ export default class Search extends Component {
 	    query: event.trim(),
 	  }));
 	};
+
 	render() {
 	  // TODO: destruture objects
 	  const { query } = this.state,
 	    { books, onChangeBook } = this.props;
 
-	  // TODO: filter the search
-	  const updateBook = query !== '' ? books.filter(book => book.title.toLowerCase().includes(query.toLowerCase())) : [];
+	  // console.log(books);
 
-	  // console.log(updateBook);
+	  // TODO: filter the search by title book or authors
+	  const updateBook = (query.length !== 0) ?
+	    books.filter(book =>
+	      book.title.toLowerCase().includes(query.toLowerCase())
+        || book.authors[0].toLowerCase().includes(query.toLowerCase()))
+	    : []; // book search empty
+
+	  // console.log(`query:  ${query.trim()}`, typeof query, updateBook, books);
+
 	  return (
 	    <div>
 	      <div className="search-books">
@@ -39,17 +47,18 @@ export default class Search extends Component {
 	          <div className="search-books-input-wrapper">
 	            <input
 	              type="text"
-	              placeholder="Search by title or author"
+	              placeholder="Search by title"
 	              onChange={event => this.updateQuery(event.target.value)}
 	            />
 	          </div>
 	        </div>
 	        <div className="search-books-results">
+	          {query === '' ? query : ''}
 	          <ol className="books-grid">
 	            {
 	              // TODO: map books filtered
-	              updateBook.map(book => (
-	                <li key={book.id}>
+	              updateBook.map(element => (
+	                <li key={element.id}>
 	                  <div className="book">
 	                    <div className="book-top">
 	                      <div
@@ -57,14 +66,14 @@ export default class Search extends Component {
 	                        style={{
 	                          width: 128,
 	                          height: 192,
-	                          backgroundImage: `url( ${book.imageLinks.thumbnail} )`,
+	                          backgroundImage: element.imageLinks.thumbnail ? `url(${element.imageLinks.thumbnail})` : 'url(//via.placeholder.com/128x192)',
 	                        }}
 	                      />
 	                      <div className="book-shelf-changer">
 	                        <select
 	                          onChange={e => onChangeBook(e)}
-	                          id={book.id}
-	                          value={book.shelf}
+	                          id={element.id}
+	                          value={element.shelf}
 	                        >
 	                          <option value="none" disabled>Move to...</option>
 	                          <option value="currentlyReading">Currently Reading</option>
@@ -73,8 +82,8 @@ export default class Search extends Component {
 	                        </select>
 	                      </div>
 	                    </div>
-	                    <div className="book-title">{book.title}</div>
-	                    <div className="book-authors">{book.authors[0]}</div>
+	                    <div className="book-title">{element.title}</div>
+	                    <div className="book-authors">{element.authors[0]}</div>
 	                  </div>
 	                </li>
 	              ))
