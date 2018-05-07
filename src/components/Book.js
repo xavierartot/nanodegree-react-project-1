@@ -2,25 +2,26 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class WantToRead extends Component {
-
   static propTypes = {
-    onChangeBook : PropTypes.func.isRequired,
-    books        : PropTypes.array.isRequired,
-    title        : PropTypes.string.isRequired,
-    titleHTML    : PropTypes.string.isRequired,
+    onChangeBook: PropTypes.func.isRequired,
+    books: PropTypes.array.isRequired,
+    title: PropTypes.string.isRequired,
+    titleHTML: PropTypes.string.isRequired,
   }
 
-  //TODO: call a method live in the controleur component
-  onChange = e => {
+  // TODO: call a method live in the controleur component
+  onChange = (e) => {
     this.props.onChangeBook(e.target.value);
     console.log(e.target.value);
   }
 
   render() {
-    const	{onChangeBook, books, title, titleHTML} = this.props
-    //TODO: filter the book to match with the shelf
+    const	{
+      onChangeBook, books, title, titleHTML,
+    } = this.props;
+    // TODO: filter the book to match with the shelf
     const booksWantToRead = books !== '' &&
-      books.filter( element => element.shelf === title)
+      books.filter(element => element.shelf === title);
 
     return (
       <div>
@@ -28,37 +29,40 @@ class WantToRead extends Component {
           <h2 className="bookshelf-title">{titleHTML}</h2>
           <div className="bookshelf-books">
             <ol className="books-grid">
-            {
-              booksWantToRead.map( (element) => {
-                return (
-                  <li key={element.id}>
-                    <div className="book">
-                      <div className="book-top">
-                        <div className="book-cover"
-                          style={{
-                            width: 128,
-                            height: 193,
-                            backgroundImage: `url(${element.imageLinks.thumbnail})`
-                          }}
-                        />
-                        <div className="book-shelf-changer">
-                          <select onChange={ e => onChangeBook(e) } id={element.id} value={element.shelf}>
-                            <option value="none" disabled>Move to...</option>
-                            <option value="currentlyReading">Currently Reading</option>
-                            <option value="wantToRead">Want to Read</option>
-                            <option value="read">Read</option>
-                            <option value="none">None</option>
-                          </select>
-
+              {
+                booksWantToRead.map(element =>
+                  (
+                    <li key={element.id}>
+                      <div className="book">
+                        <div className="book-top">
+                          <div
+                            className="book-cover"
+                            style={{
+                              width: 128,
+                              height: 193,
+                              backgroundImage: `url(${element.imageLinks.thumbnail})`,
+                            }}
+                          />
+                          <div className="book-shelf-changer">
+                            <select
+                              onChange={e => onChangeBook(e)}
+                              id={element.id}
+                              value={element.shelf}
+                            >
+                              <option value="none" disabled>Move to...</option>
+                              <option value="currentlyReading">Currently Reading</option>
+                              <option value="wantToRead">Want to Read</option>
+                              <option value="read">Read</option>
+                            </select>
+                          </div>
                         </div>
+                        <div className="book-title">{element.title}</div>
+                        <div className="book-authors">{element.authors[0]}</div>
                       </div>
-                      <div className="book-title">{element.title}</div>
-                      <div className="book-authors">{element.authors[0]}</div>
-                    </div>
-                  </li>
-                )//render end
-              }) //map end
-            } {/* JSX end */}
+                    </li>
+                  ), // render end
+                ) // map end
+              } {/* JSX end */}
             </ol>
           </div>
         </div>
