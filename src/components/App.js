@@ -7,9 +7,7 @@ import * as BooksAPI from '../server/BooksAPI';
 import '../styles/App.css';
 //COMPONENT
 import Search from './Search';
-import WantToRead from './WantToRead';
-import Read from './Read';
-import CurrentlyReading from './CurrentlyReading';
+import Book from './Book';
 
 class BooksApp extends React.Component {
   state = {
@@ -67,17 +65,23 @@ class BooksApp extends React.Component {
             <div className="list-books-content">
               <div>
                   <div>
-                    <WantToRead
+                    <Book
                       onChangeBook={this.handleChangeBook}
                       books={books}
+                      title='wantToRead'
+                      titleHTML='Want To Read'
                     />
-                    <CurrentlyReading
-                      onBookCurrentlyReading={this.handleChangeBook}
+                    <Book
+                      onChangeBook={this.handleChangeBook}
                       books={books}
+                      title='currentlyReading'
+                      titleHTML='Currently Reading'
                     />
-                    <Read
-                      onBookRead={this.handleChangeBook}
+                    <Book
+                      onChangeBook={this.handleChangeBook}
                       books={books}
+                      title='read'
+                      titleHTML='Read'
                     />
                   </div>
               </div>

@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class WantToRead extends Component {
+
   static propTypes = {
-    books: PropTypes.array.isRequired,
+    onChangeBook : PropTypes.func.isRequired,
+    books        : PropTypes.array.isRequired,
+    title        : PropTypes.string.isRequired,
+    titleHTML    : PropTypes.string.isRequired,
   }
 
   onChange = (e) => {
@@ -12,18 +16,18 @@ class WantToRead extends Component {
   }
 
   render() {
-    const	{onChangeBook, books} = this.props
-    const booksWantToRead = books !== '' && 
-      books.filter( element => element.shelf === 'wantToRead')
+    const	{onChangeBook, books, title, titleHTML} = this.props
+    const booksWantToRead = books !== '' &&
+      books.filter( element => element.shelf === title)
 
-    console.log(booksWantToRead) 
+    console.log(booksWantToRead)
 
     console.log('books', books)
 
     return (
       <div>
         <div className="bookshelf">
-          <h2 className="bookshelf-title">Want to Read</h2>
+          <h2 className="bookshelf-title">{titleHTML}</h2>
           <div className="bookshelf-books">
             <ol className="books-grid">
             {
@@ -32,15 +36,12 @@ class WantToRead extends Component {
                   <li key={element.id}>
                     <div className="book">
                       <div className="book-top">
-                          {
-                            element.shelf 
-                          }
-                        <div className="book-cover" 
-                          style={{ 
-                          width: 128, 
-                          height: 193, 
-                          backgroundImage: `url(${element.imageLinks.thumbnail})` 
-                          }} 
+                        <div className="book-cover"
+                          style={{
+                            width: 128,
+                            height: 193,
+                            backgroundImage: `url(${element.imageLinks.thumbnail})`
+                          }}
                         />
                         <div className="book-shelf-changer">
                           <select onChange={ (e) => onChangeBook(e) } id={element.id}>
@@ -59,7 +60,7 @@ class WantToRead extends Component {
                   </li>
                 )//render end
               }) //map end
-            } {/* JSX end */} 
+            } {/* JSX end */}
             </ol>
           </div>
         </div>
