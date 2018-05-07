@@ -1,23 +1,18 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
 
+//API
 import * as BooksAPI from '../server/BooksAPI';
+//CSS
 import '../styles/App.css';
+//COMPONENT
 import Search from './Search';
-
 import WantToRead from './WantToRead';
 import Read from './Read';
 import CurrentlyReading from './CurrentlyReading';
 
 class BooksApp extends React.Component {
   state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
-    showSearchPage: false,
     books: [],
     bookSelected : '',
   }
@@ -30,26 +25,28 @@ class BooksApp extends React.Component {
       });
   }
 
-  handleSearchChange = () => {
-    this.setState(() => ({
-      showSearchPage : false
-    }));
-  }
-
   handleChangeBook = (e) => {
     const value = e.target.value, 
       id = e.target.id;
 
-    this.setState(() => ({
-      bookSelected : value
+    this.setState((prev) => ({
+      bookSelected : prev.value
     }))
-    //console.log(id, value);
 
     BooksAPI.update({id}, value)
       .then( (obj) => { 
         console.log(obj);
       });
+
+    //update books in the state
+    BooksAPI.getAll()//fetchind the data from remote server
+      .then((books) => { //with the answer we're calling setState
+        this.setState(() => ({
+          books
+        }));
+      });
   }
+
   render() {
     const {books} = this.state;
     return (
@@ -57,28 +54,18 @@ class BooksApp extends React.Component {
         <Route
           exact
           path='/search'
-          render={() => (
-            <Search 
-              onClickBackSearch={this.handleSearchChange} 
-              books={books}
-            />
-          )}
+          render={() => (<Search books={books}
+          />)}
         />
-        <div className="list-books">
-          {
-            this.state.showSearchPage === false ? (
-              <div className="list-books-title">
-                <h1>MyReads</h1>
-              </div>
-            ) :
-            () =>this.setState({ showSearchPage: true })
-          }
-          <div className="list-books-content">
-            <div>
-              {/* route each Book component */}
-              <Route
-                exact path='/'
-                render={() => (
+        <Route
+          exact path='/'
+          render={() => (
+          <div className="list-books">
+            <div className="list-books-title">
+              <h1>MyReads</h1>
+            </div>
+            <div className="list-books-content">
+              <div>
                   <div>
                     <WantToRead
                       onChangeBook={this.handleChangeBook}
@@ -93,24 +80,16 @@ class BooksApp extends React.Component {
                       books={books}
                     />
                   </div>
-               )}
-              />
+              </div>
             </div>
-          </div>
-          <div className="open-search">
-            <Link
-              to={{
-              pathname: '/search',
-            }}
-              onClick={() => this.setState(() => ({
-                showSearchPage : true
-              }))
-              }
-            >
-              Add a book
-            </Link>
-          </div>
-        </div>
+            <div className="open-search">
+              <Link to='/search'>
+                Add a book
+              </Link>
+            </div>
+          </div> //render end
+          )}
+        />
       </div>
     );
   }
