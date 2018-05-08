@@ -1,5 +1,6 @@
 html, body, .root {
   height: 100%;
+  font-family: 'Open Sans', sans-serif;
 }
 body {
   line-height: 1.5;
@@ -11,14 +12,23 @@ body, .app {
 /* main page */
 
 .list-books-title {
+  display: flex;
+  justify-content: space-between;
   padding: 10px 0;
   background: #2e7c31;
   text-align: center;
 }
-.list-books-title h1 {
+.list-books-title h1{
   font-weight: 400;
   margin: 0;
   color: white;
+  margin-left: 2rem;
+}
+.connection .list-books-title{
+}
+.list-books-title .connection {
+  margin-right: 2rem;
+  align-self: center;
 }
 
 .list-books-content {
@@ -65,7 +75,7 @@ body, .app {
 /* search page */
 
 .search-books-bar {
-  position: fixed;
+  /*position: fixed;*/
   width: 100%;
   top: 0;
   left: 0;
@@ -155,8 +165,8 @@ body, .app {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 .book-shelf-changer select {
-  width: 100%;
-  height: 100%;
+  /*width: 100%;*/
+  /*height: 100%;*/
   opacity: 0;
   cursor: pointer;
 }
@@ -171,4 +181,7 @@ body, .app {
   padding: 20px 10px 0;
   text-align: center;
   font-size: 0.8em;
+}
+ .nav-color{
+   color: #fff;
 }

@@ -1,10 +1,12 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
+
 // API
 import * as BooksAPI from '../server/BooksAPI';
 // CSS
 import '../styles/App.css';
 // COMPONENT
+import Header from './Header';
 import Book from './Book';
 import Search from './Search';
 
@@ -56,6 +58,11 @@ export default class BooksApp extends React.Component {
     return (
       <div className="app">
         <Route
+          path="/"
+          authenticated="sss"
+          component={Header}
+        />
+        <Route
           exact
           path="/search"
           render={() => (
@@ -70,9 +77,6 @@ export default class BooksApp extends React.Component {
           path="/"
           render={() => (
             <div className="list-books">
-              <div className="list-books-title">
-                <h1>MyReads</h1>
-              </div>
               <div className="list-books-content">
                 <div>
                   <div>
