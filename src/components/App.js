@@ -30,25 +30,23 @@ export default class BooksApp extends React.Component {
   handleChangeBook = (e) => { // TODO: update a <select> element the states
     const value = e.target.value,
       id = e.target.id;
-    console.log(e.target);
-
-
-    this.setState(prev => ({// TODO: update state bookSelected
-      bookSelected: prev.value,
-    }));
+    console.log(e.target.value);
 
 
     BooksAPI.update({ id }, value)// TODO: update BooksAPI
       .then((obj) => {
-        // console.log(obj);
-      });
-
-    // TODO: update books in the state
-    BooksAPI.getAll()// fetchind the data from remote server
-      .then((books) => { // with the answer we're calling setState
-        this.setState(() => ({
-          books,
+        console.log('update', obj);
+        this.setState(prev => ({// TODO: update state bookSelected
+          bookSelected: prev.value,
         }));
+        // TODO: update books in the state
+        BooksAPI.getAll()// fetchind the data from remote server
+          .then((books) => { // with the answer we're calling setState
+            this.setState(() => ({
+              books,
+            }));
+            console.log('getAll', books);
+          });
       });
   }
 
@@ -113,4 +111,3 @@ export default class BooksApp extends React.Component {
     );
   }
 }
-

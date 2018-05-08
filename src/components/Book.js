@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Item, Input } from 'reactstrap';
+// import { Item, Input } from 'reactstrap';
 
 class WantToRead extends Component {
   static propTypes = {
@@ -13,7 +13,6 @@ class WantToRead extends Component {
   // TODO: call a method live in the controleur component
   onChange = (e) => {
     this.props.onChangeBook(e.target.value);
-    console.log(e.target.value);
   }
 
   render() {
@@ -46,7 +45,7 @@ class WantToRead extends Component {
                           />
                           <div className="book-shelf-changer">
                             <select
-                              type="select"
+                              name="select"
                               onChange={e => onChangeBook(e)}
                               id={element.id}
                               value={element.shelf}

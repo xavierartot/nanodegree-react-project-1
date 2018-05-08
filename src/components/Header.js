@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Nav, NavLink, Item, Input } from 'reactstrap';
+import { Nav, NavLink } from 'reactstrap';
 
 const Header = ({ authenticated }) => (
   <div>
@@ -9,7 +9,7 @@ const Header = ({ authenticated }) => (
       <Nav pills className="connection">
         <NavLink href="#" className="nav-color">About Us</NavLink>
         <NavLink href="#" className="nav-color">Contact</NavLink>
-        <NavLink disabled className="nav-color" href="#">
+        <div className="nav-link">
           {authenticated
             ?
             <input className="pt-input" placeholder="Wellcome..." type="text" />
@@ -18,7 +18,7 @@ const Header = ({ authenticated }) => (
               <Link className="nav-color" to="/Login">Register/Login</Link>
             </div>
           }
-        </NavLink>
+        </div>
       </Nav>
     </header>
   </div>
