@@ -81,19 +81,19 @@ export default class BooksApp extends React.Component {
                     <Book
                       onChangeBook={this.handleChangeBook}
                       books={books}
-                      title="wantToRead"
+                      shelfName="wantToRead"
                     >Want To Read
                     </Book>
                     <Book
                       onChangeBook={this.handleChangeBook}
                       books={books}
-                      title="currentlyReading"
+                      shelfName="currentlyReading"
                     >Currently Reading
                     </Book>
                     <Book
                       onChangeBook={this.handleChangeBook}
                       books={books}
-                      title="read"
+                      shelfName="read"
                     >Read
                     </Book>
                   </div>

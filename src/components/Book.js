@@ -6,7 +6,7 @@ class WantToRead extends Component {
   static propTypes = {
     onChangeBook: PropTypes.func.isRequired,
     books: PropTypes.array.isRequired,
-    title: PropTypes.string.isRequired,
+    shelfName: PropTypes.string.isRequired,
     children: PropTypes.string.isRequired,
   }
 
@@ -17,13 +17,12 @@ class WantToRead extends Component {
 
   render() {
     const	{
-      onChangeBook, books, title, children,
+      onChangeBook, books, shelfName, children,
     } = this.props;
 
     // TODO: filter the book to match with the shelf
-    // console.log(books);
     const booksWantToRead = books !== '' &&
-      books.filter(book => book.shelf === title);
+      books.filter(book => book.shelf === shelfName);
 
     return (
       <div>
