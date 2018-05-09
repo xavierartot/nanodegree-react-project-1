@@ -51,8 +51,12 @@ export default class BooksApp extends React.Component {
   }
 
   render() {
-    const { books } = this.state;
-
+    const { books } = this.state,
+      shelves = [ // TODO: property for <Book>
+        { id: 0, shelf: 'wantToRead', title: 'Want to Read' },
+        { id: 1, shelf: 'currentlyReading', title: 'Currently Reading' },
+        { id: 2, shelf: 'read', title: 'Read' },
+      ];
     return (
       <div className="app">
         <Route
@@ -78,24 +82,17 @@ export default class BooksApp extends React.Component {
               <div className="list-books-content">
                 <div>
                   <div>
-                    <Book
-                      onChangeBook={this.handleChangeBook}
-                      books={books}
-                      shelfName="wantToRead"
-                    >Want To Read
-                    </Book>
-                    <Book
-                      onChangeBook={this.handleChangeBook}
-                      books={books}
-                      shelfName="currentlyReading"
-                    >Currently Reading
-                    </Book>
-                    <Book
-                      onChangeBook={this.handleChangeBook}
-                      books={books}
-                      shelfName="read"
-                    >Read
-                    </Book>
+                    {
+                      // map <Book and pass props
+                      shelves.map(shelfCollect =>
+                        (<Book
+                          key={shelfCollect.id}
+                          onChangeBook={this.handleChangeBook}
+                          books={books.filter(book => book.shelf === shelfCollect.shelf)}
+                        >
+                          {shelfCollect.title}
+                         </Book>))
+                    }
                   </div>
                 </div>
               </div>

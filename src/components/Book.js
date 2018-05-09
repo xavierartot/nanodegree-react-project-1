@@ -6,7 +6,7 @@ class WantToRead extends Component {
   static propTypes = {
     onChangeBook: PropTypes.func.isRequired,
     books: PropTypes.array.isRequired,
-    shelfName: PropTypes.string.isRequired,
+    // shelfName: PropTypes.string.isRequired,
     children: PropTypes.string.isRequired,
   }
 
@@ -17,12 +17,13 @@ class WantToRead extends Component {
 
   render() {
     const	{
-      onChangeBook, books, shelfName, children,
+      onChangeBook, books, children,
     } = this.props;
+    console.log(books);
 
     // TODO: filter the book to match with the shelf
-    const booksWantToRead = books !== '' &&
-      books.filter(book => book.shelf === shelfName);
+    // const booksWantToRead = books !== '' &&
+    // books.filter(book => book.shelf === shelfName);
 
     return (
       <div>
@@ -31,7 +32,7 @@ class WantToRead extends Component {
           <div className="bookshelf-books">
             <ol className="books-grid">
               {
-                booksWantToRead.map(element =>
+                books.map(element =>
                   (
                     <li key={element.id}>
                       <div className="book">
