@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
-
 // API
 import * as BooksAPI from '../server/BooksAPI';
 // CSS
@@ -30,32 +29,35 @@ export default class BooksApp extends React.Component {
   handleChangeBook = (e) => { // TODO: update a <select> element the states
     const value = e.target.value,
       bookId = e.target.id;
-    // console.log(e.target.value);
+    console.log(value, bookId, e);
 
 
-    BooksAPI.update({ bookId }, value)// TODO: update BooksAPI
+    BooksAPI.update(bookId, value)// TODO: update BooksAPI
       .then((obj) => {
+        console.log(obj);
         this.setState(prev => ({// TODO: update state bookSelected
           bookSelected: prev.value,
         }));
 
         // TODO: update books in the state
-        const res = this.state.books.map((book) => {
+        const books = this.state.books.map((book) => {
           if (book.id === bookId) { book.shelf = value; }
           return book;
         });
+
         this.setState(() => ({
-          books: res,
+          books,
         }));
+      }).then(() => {
       });
   }
 
   render() {
     const { books } = this.state,
       shelves = [ // TODO: property for <Book>
-        { id: 0, shelf: 'wantToRead', title: 'Want to Read' },
-        { id: 1, shelf: 'currentlyReading', title: 'Currently Reading' },
-        { id: 2, shelf: 'read', title: 'Read' },
+        { id: Math.random().toString(10).substr(-8), shelf: 'wantToRead', title: 'Want to Read' },
+        { id: Math.random().toString(10).substr(-8), shelf: 'currentlyReading', title: 'Currently Reading' },
+        { id: Math.random().toString(10).substr(-8), shelf: 'read', title: 'Read' },
       ];
     return (
       <div className="app">

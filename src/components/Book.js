@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import { Item, Input } from 'reactstrap';
+import styled, { keyframes } from 'styled-components';
+import { fadeIn } from 'react-animations';
 
-class WantToRead extends Component {
+const fadeInAnim = keyframes`${fadeIn}`;
+const FadeInAnim = styled.div`
+ animation: 1s ${fadeInAnim};
+ `;
+class Book extends Component {
   static propTypes = {
     onChangeBook: PropTypes.func.isRequired,
     books: PropTypes.array.isRequired,
-    // shelfName: PropTypes.string.isRequired,
     children: PropTypes.string.isRequired,
   }
 
@@ -19,7 +23,7 @@ class WantToRead extends Component {
     const	{
       onChangeBook, books, children,
     } = this.props;
-    console.log(books);
+    // console.log(books);
 
     // TODO: filter the book to match with the shelf
     // const booksWantToRead = books !== '' &&
@@ -34,35 +38,37 @@ class WantToRead extends Component {
               {
                 books.map(element =>
                   (
-                    <li key={element.id}>
-                      <div className="book">
-                        <div className="book-top">
-                          <div
-                            className="book-cover"
-                            style={{
-                              width: 128,
-                              height: 193,
-                              backgroundImage: element.imageLinks.thumbnail ? `url(${element.imageLinks.thumbnail})` : 'url(//via.placeholder.com/128x192)',
-                            }}
-                          />
-                          <div className="book-shelf-changer">
-                            <select
-                              name="select"
-                              onChange={e => onChangeBook(e)}
-                              id={element.id}
-                              value={element.shelf}
-                            >
-                              <option value="none" disabled>Move to...</option>
-                              <option value="currentlyReading">Currently Reading</option>
-                              <option value="wantToRead">Want to Read</option>
-                              <option value="read">Read</option>
-                            </select>
+                    <FadeInAnim key={element.id}>
+                      <li>
+                        <div className="book">
+                          <div className="book-top">
+                            <div
+                              className="book-cover"
+                              style={{
+                                width: 128,
+                                height: 193,
+                                backgroundImage: element.imageLinks.thumbnail ? `url(${element.imageLinks.thumbnail})` : 'url(//via.placeholder.com/128x192)',
+                              }}
+                            />
+                            <div className="book-shelf-changer">
+                              <select
+                                name="select"
+                                onChange={e => onChangeBook(e)}
+                                id={element.id}
+                                value={element.shelf}
+                              >
+                                <option value="none" disabled>Move to...</option>
+                                <option value="currentlyReading">Currently Reading</option>
+                                <option value="wantToRead">Want to Read</option>
+                                <option value="read">Read</option>
+                              </select>
+                            </div>
                           </div>
+                          <div className="book-title">{element.title}</div>
+                          <div className="book-authors">{element.authors[0] ? element.authors[0] : ''}</div>
                         </div>
-                        <div className="book-title">{element.title}</div>
-                        <div className="book-authors">{element.authors[0] ? element.authors[0] : ''}</div>
-                      </div>
-                    </li>
+                      </li>
+                    </FadeInAnim>
                   ), // render end
                 ) // map end
               } {/* JSX end */}
@@ -73,4 +79,4 @@ class WantToRead extends Component {
     );
   }
 }
-export default WantToRead;
+export default Book;
