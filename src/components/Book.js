@@ -7,7 +7,7 @@ class WantToRead extends Component {
     onChangeBook: PropTypes.func.isRequired,
     books: PropTypes.array.isRequired,
     title: PropTypes.string.isRequired,
-    titleHTML: PropTypes.string.isRequired,
+    children: PropTypes.string.isRequired,
   }
 
   // TODO: call a method live in the controleur component
@@ -17,7 +17,7 @@ class WantToRead extends Component {
 
   render() {
     const	{
-      onChangeBook, books, title, titleHTML,
+      onChangeBook, books, title, children,
     } = this.props;
 
     // TODO: filter the book to match with the shelf
@@ -28,7 +28,7 @@ class WantToRead extends Component {
     return (
       <div>
         <div className="bookshelf">
-          <h2 className="bookshelf-title">{titleHTML}</h2>
+          <h2 className="bookshelf-title">{children}</h2>
           <div className="bookshelf-books">
             <ol className="books-grid">
               {

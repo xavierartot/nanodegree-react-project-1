@@ -40,38 +40,13 @@ export default class BooksApp extends React.Component {
         }));
 
         // TODO: update books in the state
-        const res = this.state.books.map((element) => {
-          if (element.id === bookId) { element.shelf = value; }
-          return element;
-          // console.log(element.id, bookId, element.shelf, value);
+        const res = this.state.books.map((book) => {
+          if (book.id === bookId) { book.shelf = value; }
+          return book;
         });
-        console.log(res);
         this.setState(() => ({
           books: res,
         }));
-
-        // // TODO: update books in the state with getAll()
-        // BooksAPI.getAll()// fetchind the data from remote server
-        // .then((books) => { // with the answer we're calling setState
-        // this.setState(() => ({
-        // books,
-        // }));
-        // // console.log('getAll', books);
-        // });
-
-
-        // other solution than to call the server again, it's to update books state only
-        // console.log(obj, obj.id);
-        // const result =
-        // this.state.books.filter(b => b.id.includes(obj.currentlyReading))
-        // .concat(b => b.id.includes(obj.wantToRead))
-        // .concat(b => b.id.includes(obj.read));
-
-        // console.log('result', result);
-        // this.setState(() => ({
-        // books: result,
-        // })
-        // );
       });
   }
 
@@ -107,20 +82,20 @@ export default class BooksApp extends React.Component {
                       onChangeBook={this.handleChangeBook}
                       books={books}
                       title="wantToRead"
-                      titleHTML="Want To Read"
-                    />
+                    >Want To Read
+                    </Book>
                     <Book
                       onChangeBook={this.handleChangeBook}
                       books={books}
                       title="currentlyReading"
-                      titleHTML="Currently Reading"
-                    />
+                    >Currently Reading
+                    </Book>
                     <Book
                       onChangeBook={this.handleChangeBook}
                       books={books}
                       title="read"
-                      titleHTML="Read"
-                    />
+                    >Read
+                    </Book>
                   </div>
                 </div>
               </div>
