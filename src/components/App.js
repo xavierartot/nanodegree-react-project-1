@@ -29,24 +29,49 @@ export default class BooksApp extends React.Component {
 
   handleChangeBook = (e) => { // TODO: update a <select> element the states
     const value = e.target.value,
-      id = e.target.id;
-    console.log(e.target.value);
+      bookId = e.target.id;
+    // console.log(e.target.value);
 
 
-    BooksAPI.update({ id }, value)// TODO: update BooksAPI
+    BooksAPI.update({ bookId }, value)// TODO: update BooksAPI
       .then((obj) => {
-        console.log('update', obj);
         this.setState(prev => ({// TODO: update state bookSelected
           bookSelected: prev.value,
         }));
+
         // TODO: update books in the state
-        BooksAPI.getAll()// fetchind the data from remote server
-          .then((books) => { // with the answer we're calling setState
-            this.setState(() => ({
-              books,
-            }));
-            console.log('getAll', books);
-          });
+        const res = this.state.books.map((element) => {
+          if (element.id === bookId) { element.shelf = value; }
+          return element;
+          // console.log(element.id, bookId, element.shelf, value);
+        });
+        console.log(res);
+        this.setState(() => ({
+          books: res,
+        }));
+
+        // // TODO: update books in the state with getAll()
+        // BooksAPI.getAll()// fetchind the data from remote server
+        // .then((books) => { // with the answer we're calling setState
+        // this.setState(() => ({
+        // books,
+        // }));
+        // // console.log('getAll', books);
+        // });
+
+
+        // other solution than to call the server again, it's to update books state only
+        // console.log(obj, obj.id);
+        // const result =
+        // this.state.books.filter(b => b.id.includes(obj.currentlyReading))
+        // .concat(b => b.id.includes(obj.wantToRead))
+        // .concat(b => b.id.includes(obj.read));
+
+        // console.log('result', result);
+        // this.setState(() => ({
+        // books: result,
+        // })
+        // );
       });
   }
 

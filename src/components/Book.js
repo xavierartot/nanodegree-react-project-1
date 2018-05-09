@@ -19,9 +19,11 @@ class WantToRead extends Component {
     const	{
       onChangeBook, books, title, titleHTML,
     } = this.props;
+
     // TODO: filter the book to match with the shelf
+    // console.log(books);
     const booksWantToRead = books !== '' &&
-      books.filter(element => element.shelf === title);
+      books.filter(book => book.shelf === title);
 
     return (
       <div>
