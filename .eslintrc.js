@@ -7,7 +7,7 @@ module.exports = {
     commonjs: true,
     es6: true,
   },
-  extends: ['eslint:recommended', 'plugin:react/recommended'],
+  //extends: ['eslint:recommended', 'plugin:react/recommended'],
   extends: ['airbnb', 'plugin:react/recommended'],
   parserOptions: {
     ecmaFeatures: {
@@ -27,6 +27,7 @@ module.exports = {
     'class-methods-use-this': 0,
     'no-console': 2,
     'no-return-assign': 1,
+    'semi': ['error', 'never'],
     'react/jsx-uses-vars': 1,
     'react/no-unused-state': 1,
     'react/jsx-key': 2,

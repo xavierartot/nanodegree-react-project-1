@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 export default class Search extends Component {
   // TODO: init search state
@@ -15,13 +15,13 @@ export default class Search extends Component {
 	  // console.log(event);
 	  this.setState(() => ({
 	    query: event.trim(),
-	  }));
+	  }))
 	};
 
 	render() {
 	  // TODO: destruture objects
 	  const { query } = this.state,
-	    { books, onChangeBook } = this.props;
+	    { books, onChangeBook } = this.props
 
 	  // console.log(books);
 
@@ -30,7 +30,7 @@ export default class Search extends Component {
 	    books.filter(book =>
 	      book.title.toLowerCase().includes(query.toLowerCase())
         || book.authors[0].toLowerCase().includes(query.toLowerCase()))
-	    : []; // book search empty
+	    : [] // book search empty
 
 	  // console.log(`query:  ${query.trim()}`, typeof query, updateBook, books);
 
@@ -94,7 +94,7 @@ export default class Search extends Component {
 	        </div>
 	      </div>
 	    </div>
-	  );
+	  )
 	}
 }
 

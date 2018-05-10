@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import styled, { keyframes } from 'styled-components';
-import { fadeIn } from 'react-animations';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import styled, { keyframes } from 'styled-components'
+import { fadeIn } from 'react-animations'
 
-const fadeInAnim = keyframes`${fadeIn}`;
+const fadeInAnim = keyframes`${fadeIn}`
 const FadeInAnim = styled.div`
  animation: 1s ${fadeInAnim};
- `;
+ `
+
 class Book extends Component {
   static propTypes = {
     onChangeBook: PropTypes.func.isRequired,
@@ -16,13 +17,13 @@ class Book extends Component {
 
   // TODO: call a method live in the controleur component
   onChange = (e) => {
-    this.props.onChangeBook(e.target.value);
+    this.props.onChangeBook(e.target.value)
   }
 
   render() {
     const	{
       onChangeBook, books, children,
-    } = this.props;
+    } = this.props
     // console.log(books);
 
     // TODO: filter the book to match with the shelf
@@ -76,7 +77,7 @@ class Book extends Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
-export default Book;
+export default Book
