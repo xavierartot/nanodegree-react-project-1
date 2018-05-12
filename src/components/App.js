@@ -13,6 +13,7 @@ export default class BooksApp extends React.Component {
   // init state
   state = {
     books: [],
+    error: null,
   }
 
   handleBooks = (books) => {
@@ -20,14 +21,14 @@ export default class BooksApp extends React.Component {
       books,
     }))
   }
+
   componentDidMount() { // TODO: fetch data after the component mouted
     BooksAPI.getAll()// fetchind the data from remote server
       .then((books) => { // with the answer we're calling setState
-        this.handleBooks(books)// update state and recall the render method
+        this.handleBooks(books)// update state then recall the render method
       })
-      .catch(error => error)
+      .catch(error => this.setState(() => ({ error })))
   }
-
 
   handleChangeBook = (e) => { // TODO: update a <select> element and the states
     const value = e.target.value,
@@ -41,13 +42,13 @@ export default class BooksApp extends React.Component {
           if (book.id === id) { book.shelf = value }
           return book
         })
-        this.handleBooks(books)// TODO: update state and recall the render method
+        this.handleBooks(books)// TODO: update state then recall the render method
       })
-      .catch(error => error)
+      .catch(error => this.setState(() => ({ error })))
   }
 
   render() {
-    const { books } = this.state,
+    const { books, error } = this.state,
       shelves = [ // TODO: property for <Book>
         { id: Math.random().toString(6).substr(-8), shelf: 'wantToRead', title: 'Want to Read' },
         { id: Math.random().toString(6).substr(-8), shelf: 'currentlyReading', title: 'Currently Reading' },
@@ -59,25 +60,34 @@ export default class BooksApp extends React.Component {
           path="/"
           component={Header}
         />
-        <Route
-          exact
-          path="/search"
-          render={() => (
+        {error // this.state.error
+          ? <div className="interactions">
+            <p>Something went wrong.</p>
+          </div>
+          :
+          (<div>
+            <Route
+              exact
+              path="/search"
+              render={() => (
+                (books &&
             <Search
               books={books}
               onChangeBook={this.handleChangeBook}
             />
-          )}
-        />
-        <Route
-          exact
-          path="/"
-          render={() => (
-            <div className="list-books">
-              <div className="list-books-content">
-                <div>
-                  <div>
-                    {
+                ) || null // the render is called before componentDidMount(), setState reload render()
+              )}
+            />
+            <Route
+              exact
+              path="/"
+              render={() => (
+                <div className="list-books">
+                  <div className="list-books-content">
+                    <div>
+                      <div>
+                        {
+                          (books &&
                       // map <Book and pass props
                       shelves.map(shelfCollect =>
                         (<Book
@@ -87,18 +97,20 @@ export default class BooksApp extends React.Component {
                         >
                           {shelfCollect.title}
                          </Book>))
-                    }
+                          ) || null // the render is called before componentDidMount(), setState reload render()
+                        }
+                      </div>
+                    </div>
+                  </div>
+                  <div className="open-search">
+                    <Link to="/search">
+                  Add a book
+                    </Link>
                   </div>
                 </div>
-              </div>
-              <div className="open-search">
-                <Link to="/search">
-                  Add a book
-                </Link>
-              </div>
-            </div>
-          )} // render Route END
-        />
+              )} // render Route END
+            />
+           </div>)}
       </div>
     )
   }

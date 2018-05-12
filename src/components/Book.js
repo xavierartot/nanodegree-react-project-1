@@ -1,12 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled, { keyframes } from 'styled-components'
-import { fadeIn } from 'react-animations'
+import { fadeIn, fadeInLeft } from 'react-animations'
 
 const fadeInAnim = keyframes`${fadeIn}`
 const FadeInAnim = styled.div`
  animation: 1s ${fadeInAnim};
  `
+
+const fadeInLeftAnim = keyframes`${fadeInLeft}`
+const FadeInLeftAnim = styled.div`
+ animation: 1s ${fadeInLeftAnim};
+ `
+
 
 class Book extends Component {
   static propTypes = {
@@ -33,7 +39,11 @@ class Book extends Component {
     return (
       <div>
         <div className="bookshelf">
-          <h2 className="bookshelf-title">{children}</h2>
+          <h2 className="bookshelf-title">
+            <FadeInLeftAnim>
+              {children}
+            </FadeInLeftAnim>
+          </h2>
           <div className="bookshelf-books">
             <ol className="books-grid">
               {
