@@ -47,12 +47,14 @@ export default class BooksApp extends React.Component {
       .catch(error => this.setState(() => ({ error })))
   }
 
+  randomId = () => Math.random().toString(6).substr(-8)
+
   render() {
     const { books, error } = this.state,
       shelves = [ // TODO: property for <Book>
-        { id: Math.random().toString(6).substr(-8), shelf: 'wantToRead', title: 'Want to Read' },
-        { id: Math.random().toString(6).substr(-8), shelf: 'currentlyReading', title: 'Currently Reading' },
-        { id: Math.random().toString(6).substr(-8), shelf: 'read', title: 'Read' },
+        { id: this.randomId(), shelf: 'wantToRead', title: 'Want to Read' },
+        { id: this.randomId(), shelf: 'currentlyReading', title: 'Currently Reading' },
+        { id: this.randomId(), shelf: 'read', title: 'Read' },
       ]
     return (
       <div className="app">
