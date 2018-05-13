@@ -1,18 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled, { keyframes } from 'styled-components'
-import { fadeIn, fadeInLeft } from 'react-animations'
+import { fadeIn } from 'react-animations'
+
+import Rating from './Rating'
+
 
 const fadeInAnim = keyframes`${fadeIn}`
 const FadeInAnim = styled.div`
  animation: 1s ${fadeInAnim};
  `
-
-const fadeInLeftAnim = keyframes`${fadeInLeft}`
-const FadeInLeftAnim = styled.div`
- animation: 1s ${fadeInLeftAnim};
- `
-
 
 class Book extends Component {
   static propTypes = {
@@ -35,14 +32,11 @@ class Book extends Component {
     // TODO: filter the book to match with the shelf
     // const booksWantToRead = books !== '' &&
     // books.filter(book => book.shelf === shelfName);
-
     return (
       <div>
         <div className="bookshelf">
           <h2 className="bookshelf-title">
-            <FadeInLeftAnim>
-              {children}
-            </FadeInLeftAnim>
+            {children}
           </h2>
           <div className="bookshelf-books">
             <ol className="books-grid">
@@ -77,6 +71,7 @@ class Book extends Component {
                           </div>
                           <div className="book-title">{element.title}</div>
                           <div className="book-authors">{element.authors[0] ? element.authors[0] : ''}</div>
+                          <Rating books={books} />
                         </div>
                       </li>
                     </FadeInAnim>

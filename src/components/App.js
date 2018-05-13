@@ -45,8 +45,9 @@ export default class BooksApp extends React.Component {
         this.handleBooks(books)// TODO: update state then recall the render method
       })
       .catch(error => this.setState(() => ({ error })))
-  }
+  }// end handleChangeBook(target)
 
+  // random id to use with shelves
   randomId = () => Math.random().toString(6).substr(-8)
 
   render() {
@@ -62,7 +63,7 @@ export default class BooksApp extends React.Component {
           path="/"
           component={Header}
         />
-        {error // this.state.error
+        {error
           ? <div className="interactions">
             <p>Something went wrong.</p>
           </div>
