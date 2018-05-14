@@ -71,7 +71,7 @@ class Book extends Component {
                           </div>
                           <div className="book-title">{element.title}</div>
                           <div className="book-authors">{element.authors[0] ? element.authors[0] : ''}</div>
-                          <Rating books={books} />
+                          <Rating average={element.averageRating} />
                         </div>
                       </li>
                     </FadeInAnim>
