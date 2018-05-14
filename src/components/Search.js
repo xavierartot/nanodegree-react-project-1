@@ -3,57 +3,59 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 // API
 import * as BooksAPI from '../server/BooksAPI'
-import Book from './Book'
+// import Book from './Book'
+// import Rating from './Rating'
 
+const DEFAULT_QUERY = 'Android'
 
 export default class Search extends Component {
-  // TODO: init search state
-  state = {
-    booksSearch: [],
+  constructor(props) {
+    super(props)
+    this.state = {
+      booksSearch: null,
+      searchTerm: DEFAULT_QUERY,
+    }
   }
   static propTypes = {
     books: PropTypes.array.isRequired,
   }
 
-  setSearchBook = (booksSearch) => {
-    this.setState(() => ({
-      booksSearch,
-    }))
-  }
-  searchQueryBook = (e) => {
+  fetchSearchBook = (e) => {
 	  BooksAPI.search(e)// TODO: update BooksAPI
-	    .then((result) => {
-        this.setSearchBook(result)
-        console.log(result)
+	    .then((booksSearch) => {
+        this.setSearchBook(booksSearch)
+        console.log(booksSearch)
 	    })
 	    .catch(error => this.setState(() => ({ error })))
   }
+
+  setSearchBook = (booksSearch) => {
+    this.setState(() => ({
+      booksSearch, // call render method
+    }))
+    console.log(booksSearch)
+  }
   componentDidMount() {
-    const { booksSearch } = this.state
-    this.searchQueryBook(booksSearch)
-	  console.log('cdm', booksSearch)
+    const { searchTerm } = this.state
+    this.fetchSearchBook(searchTerm)
+	  console.log('cdm', searchTerm)
+    // console.log(booksSearch)
   }
 
-	updateQuery = (value) => {
-	  const { booksSearch } = this.state
-	  this.searchQueryBook(value)
-	  console.log('update', booksSearch)
+	updateQuery = (e) => {
+	  const { searchTerm } = this.state
+	  this.setState(() => ({
+	    searchTerm: e,
+	  }))
+	  this.fetchSearchBook(searchTerm)
+	  console.log('update', searchTerm)
 	}
 
-
 	render() {
-	  // TODO: destruture objects
-	  const { booksSearch } = this.state,
-	    { books, onChangeBookSearch } = this.props
+	  const { booksSearch } = this.state
 	  console.log('render', booksSearch)
-	  // TODO: filter the search by title book or authors
-	  // const updateBook = (query.length !== 0) ?
-	  // books.filter(book =>
-	  // book.title.toLowerCase().includes(query.toLowerCase())
-	  // || book.authors[0].toLowerCase().includes(query.toLowerCase()))
-	  // : [] // book search empty
 
-	  // console.log(`query:  ${query.trim()}`, typeof query, updateBook, books);
+
 	  return (
 	    <div>
 	      <div className="search-books">
@@ -73,15 +75,26 @@ export default class Search extends Component {
 	          </div>
 	        </div>
 	        <div className="search-books-results">
-	          {booksSearch ?
-	          <Book
-	            onChangeBook={onChangeBookSearch}
-	            books={booksSearch}
-	          /> : null}
+
+	          <div className="bookshelf-books">
+	            <ol className="books-grid">
+	              {
+
+	                booksSearch ?
+	                booksSearch.map(e =>
+	                  (
+	                    <li key={e.id}>
+	                      {e.id}
+	                    </li>
+	                  ), // render end
+	                ) // map end
+	                  : null
+	              } {/* JSX end */}
+	            </ol>
+	          </div>
 	        </div>
 	      </div>
 	    </div>
 	  )
 	}
 }
-

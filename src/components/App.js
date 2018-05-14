@@ -75,10 +75,7 @@ export default class BooksApp extends React.Component {
               path="/search"
               render={() => (
                 (books &&
-                  <Search
-                    books={books}
-                    onChangeBookSearch={this.handleChangeBook}
-                  />
+                  <Search />
                 ) || null // the render is called before componentDidMount(), setState reload render()
               )}
             />
