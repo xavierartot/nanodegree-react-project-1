@@ -14,24 +14,38 @@ export default class Search extends Component {
   static propTypes = {
     books: PropTypes.array.isRequired,
   }
-	updateQuery = (event) => {
-	  console.log('event', event, typeof event)
-	  BooksAPI.search(event)// TODO: update BooksAPI
-	    .then((obj) => {
-	      this.setState(() => ({
-	        booksSearch: obj,
-	      }))
-	      console.log(obj)
+
+  setSearchBook = (booksSearch) => {
+    this.setState(() => ({
+      booksSearch,
+    }))
+  }
+  searchQueryBook = (e) => {
+	  BooksAPI.search(e)// TODO: update BooksAPI
+	    .then((result) => {
+        this.setSearchBook(result)
+        console.log(result)
 	    })
 	    .catch(error => this.setState(() => ({ error })))
-	};
+  }
+  componentDidMount() {
+    const { booksSearch } = this.state
+    this.searchQueryBook(booksSearch)
+	  console.log('cdm', booksSearch)
+  }
+
+	updateQuery = (value) => {
+	  const { booksSearch } = this.state
+	  this.searchQueryBook(value)
+	  console.log('update', booksSearch)
+	}
 
 
 	render() {
 	  // TODO: destruture objects
 	  const { booksSearch } = this.state,
 	    { books, onChangeBookSearch } = this.props
-	  console.log(booksSearch)
+	  console.log('render', booksSearch)
 	  // TODO: filter the search by title book or authors
 	  // const updateBook = (query.length !== 0) ?
 	  // books.filter(book =>
@@ -59,11 +73,11 @@ export default class Search extends Component {
 	          </div>
 	        </div>
 	        <div className="search-books-results">
-	          {booksSearch.length !== 0 ?
+	          {booksSearch ?
 	          <Book
 	            onChangeBook={onChangeBookSearch}
 	            books={booksSearch}
-	          /> : 'xxxxxxxxxxxxxx'}
+	          /> : null}
 	        </div>
 	      </div>
 	    </div>

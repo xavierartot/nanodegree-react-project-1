@@ -13,8 +13,8 @@ const FadeInAnim = styled.div`
 
 class Book extends Component {
   static propTypes = {
-    onChangeBook: PropTypes.func.isRequired,
-    books: PropTypes.array,
+    // onChangeBook: PropTypes.func.isRequired,
+    // books: PropTypes.array,
     children: PropTypes.string,
   }
 
@@ -32,6 +32,7 @@ class Book extends Component {
     // TODO: filter the book to match with the shelf
     // const booksWantToRead = books !== '' &&
     // books.filter(book => book.shelf === shelfName);
+    console.log(books)
     return (
       <div>
         <div className="bookshelf">
