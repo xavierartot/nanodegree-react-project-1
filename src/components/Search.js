@@ -45,7 +45,7 @@ export default class Search extends Component {
 	updateQuery = (e) => {
 	  const { searchTerm } = this.state
 	  this.setState(() => ({
-	    searchTerm: e,
+	    searchTerm: e.trim(),
 	  }))
 	  this.fetchSearchBook(searchTerm)
 	  console.log('update', searchTerm)
@@ -54,7 +54,6 @@ export default class Search extends Component {
 	render() {
 	  const { booksSearch } = this.state
 	  console.log('render', booksSearch)
-
 
 	  return (
 	    <div>
@@ -79,7 +78,6 @@ export default class Search extends Component {
 	          <div className="bookshelf-books">
 	            <ol className="books-grid">
 	              {
-
 	                booksSearch ?
 	                booksSearch.map(e =>
 	                  (
