@@ -27,11 +27,13 @@ class Book extends Component {
     const	{
       onChangeBook, books, children,
     } = this.props
-    // console.log(books);
 
     // TODO: filter the book to match with the shelf
     // const booksWantToRead = books !== '' &&
     // books.filter(book => book.shelf === shelfName);
+    console.log(books)
+    books.map(element => console.log(element.id))
+    if (!books) { return null }
     console.log(books)
     return (
       <div>
@@ -44,42 +46,46 @@ class Book extends Component {
           <div className="bookshelf-books">
             <ol className="books-grid">
               {
-                books.map(element =>
-                  (
-                    <FadeInAnim key={element.id}>
-                      <li>
-                        <div className="book">
-                          <div className="book-top">
-                            <div
-                              className="book-cover"
-                              style={{
-                                width: 128,
-                                height: 193,
-                                backgroundImage: element.imageLinks.thumbnail ? `url(${element.imageLinks.thumbnail})` : 'url(//via.placeholder.com/128x192)',
-                              }}
-                            />
-                            <div className="book-shelf-changer">
-                              <select
-                                name="select"
-                                onChange={e => onChangeBook(e)}
-                                id={element.id}
-                                value={element.shelf}
-                              >
-                                <option value="none" disabled>Move to...</option>
-                                <option value="currentlyReading">Currently Reading</option>
-                                <option value="wantToRead">Want to Read</option>
-                                <option value="read">Read</option>
-                              </select>
+                books ?
+                  books.map(element =>
+                    (
+                      <FadeInAnim key={element.id}>
+                        <li>
+                          <div className="book">
+                            <div className="book-top">
+                              <div
+                                className="book-cover"
+                                style={{
+                                  width: 128,
+                                  height: 193,
+                                  backgroundImage: element.imageLinks.thumbnail ? `url(${element.imageLinks.thumbnail})` : 'url(//via.placeholder.com/128x192)',
+                                }}
+                              />
+                              <div className="book-shelf-changer">
+                                <select
+                                  name="select"
+                                  onChange={e => onChangeBook(e)}
+                                  id={element.id}
+                                  value={element.shelf}
+                                >
+                                  <option value="none" disabled>Move to...</option>
+                                  <option value="currentlyReading">Currently Reading</option>
+                                  <option value="wantToRead">Want to Read</option>
+                                  <option value="read">Read</option>
+                                </select>
+                              </div>
                             </div>
+                            <div className="book-title">{element.title}</div>
+                            <div className="book-authors">{element.authors[0] !== 0 && element.authors[0] !==
+                              null ? element.authors[0] : ''}
+                            </div>
+                            <Rating average={element.averageRating} />
                           </div>
-                          <div className="book-title">{element.title}</div>
-                          <div className="book-authors">{element.authors[0] ? element.authors[0] : ''}</div>
-                          <Rating average={element.averageRating} />
-                        </div>
-                      </li>
-                    </FadeInAnim>
-                  ), // render end
-                ) // map end
+                        </li>
+                      </FadeInAnim>
+                    ), // render end
+                  ) // map end
+                  : ''
               } {/* JSX end */}
             </ol>
           </div>

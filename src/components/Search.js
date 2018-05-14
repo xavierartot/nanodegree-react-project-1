@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 // API
 import * as BooksAPI from '../server/BooksAPI'
-// import Book from './Book'
+import Book from './Book'
 // import Rating from './Rating'
 
 const DEFAULT_QUERY = 'Android'
@@ -79,13 +79,10 @@ export default class Search extends Component {
 	            <ol className="books-grid">
 	              {
 	                booksSearch ?
-	                booksSearch.map(e =>
-	                  (
-	                    <li key={e.id}>
-	                      {e.id}
-	                    </li>
-	                  ), // render end
-	                ) // map end
+	                  <Book
+	                    onChangeBook={this.props.handleChangeBook}
+	                    books={booksSearch}
+	                  />
 	                  : null
 	              } {/* JSX end */}
 	            </ol>
