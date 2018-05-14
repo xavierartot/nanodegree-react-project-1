@@ -14,8 +14,8 @@ const FadeInAnim = styled.div`
 class Book extends Component {
   static propTypes = {
     onChangeBook: PropTypes.func.isRequired,
-    books: PropTypes.array.isRequired,
-    children: PropTypes.string.isRequired,
+    books: PropTypes.array,
+    children: PropTypes.string,
   }
 
   // TODO: call a method live in the controleur component
@@ -35,9 +35,11 @@ class Book extends Component {
     return (
       <div>
         <div className="bookshelf">
-          <h2 className="bookshelf-title">
-            {children}
-          </h2>
+          {children ?
+            <h2 className="bookshelf-title">
+              {children}
+            </h2>
+            : ''}
           <div className="bookshelf-books">
             <ol className="books-grid">
               {

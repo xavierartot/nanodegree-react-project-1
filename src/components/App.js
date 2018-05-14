@@ -27,7 +27,8 @@ export default class BooksApp extends React.Component {
       .then((books) => { // with the answer we're calling setState
         this.handleBooks(books)// update state then recall the render method
       })
-      .catch(error => this.setState(() => ({ error })))
+      .catch(error =>
+        this.setState(() => ({ error })))
   }
 
   handleChangeBook = (e) => { // TODO: update a <select> element and the states
@@ -74,10 +75,10 @@ export default class BooksApp extends React.Component {
               path="/search"
               render={() => (
                 (books &&
-            <Search
-              books={books}
-              onChangeBook={this.handleChangeBook}
-            />
+                  <Search
+                    books={books}
+                    onChangeBookSearch={this.handleChangeBook}
+                  />
                 ) || null // the render is called before componentDidMount(), setState reload render()
               )}
             />

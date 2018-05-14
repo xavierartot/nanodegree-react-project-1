@@ -1,11 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Nav, NavLink } from 'reactstrap';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { Nav, NavLink } from 'reactstrap'
 
 const Header = ({ authenticated }) => (
   <div>
     <header className="list-books-title">
-      <h1>Great Library d'Austin</h1>
+      <h1>Great Library d'Austin, TX</h1>
       <Nav pills className="connection">
         <NavLink href="#" className="nav-color">About Us</NavLink>
         <NavLink href="#" className="nav-color">Contact</NavLink>
@@ -22,6 +22,6 @@ const Header = ({ authenticated }) => (
       </Nav>
     </header>
   </div>
-);
-export default Header;
+)
+export default Header
 
