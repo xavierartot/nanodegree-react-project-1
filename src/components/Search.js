@@ -17,7 +17,7 @@ export default class Search extends Component {
     }
   }
   static propTypes = {
-    books: PropTypes.array.isRequired,
+    books: PropTypes.array,
   }
 
   fetchSearchBook = (e) => {
