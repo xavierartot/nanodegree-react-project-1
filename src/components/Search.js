@@ -6,7 +6,7 @@ import * as BooksAPI from '../server/BooksAPI'
 import Book from './Book'
 // import Rating from './Rating'
 
-const DEFAULT_QUERY = 'Android'
+const DEFAULT_QUERY = ''
 
 export default class Search extends Component {
   constructor(props) {
@@ -20,6 +20,20 @@ export default class Search extends Component {
     books: PropTypes.array,
   }
 
+
+  setSearchBook = (booksSearch) => {
+    this.setState(() => ({
+      booksSearch, // call render method
+    }))
+    // console.log(booksSearch)
+  }
+  componentDidMount() {
+    const { searchTerm } = this.state
+    this.fetchSearchBook(searchTerm)
+	  console.log('cdm', searchTerm)
+    // console.log(booksSearch)
+  }
+
   fetchSearchBook = (e) => {
 	  BooksAPI.search(e)// TODO: update BooksAPI
 	    .then((booksSearch) => {
@@ -29,26 +43,13 @@ export default class Search extends Component {
 	    .catch(error => this.setState(() => ({ error })))
   }
 
-  setSearchBook = (booksSearch) => {
-    this.setState(() => ({
-      booksSearch, // call render method
-    }))
-    console.log(booksSearch)
-  }
-  componentDidMount() {
-    const { searchTerm } = this.state
-    this.fetchSearchBook(searchTerm)
-	  console.log('cdm', searchTerm)
-    // console.log(booksSearch)
-  }
-
 	updateQuery = (e) => {
 	  const { searchTerm } = this.state
 	  this.setState(() => ({
 	    searchTerm: e.trim(),
 	  }))
 	  this.fetchSearchBook(searchTerm)
-	  console.log('update', searchTerm)
+	  console.log('update: ', searchTerm, e)
 	}
 
 	render() {
@@ -79,7 +80,7 @@ export default class Search extends Component {
 	              {
 	                booksSearch ?
 	                  <Book
-	                    onChangeBook={this.props.handleChangeBook}
+	                    onChangeBook={this.props.onChangeBook}
 	                    books={booksSearch}
 	                  />
 	                  : null

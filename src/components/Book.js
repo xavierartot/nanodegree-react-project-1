@@ -26,6 +26,7 @@ class Book extends Component {
 
   // TODO: call a method live in the controleur component
   onChange = (e) => {
+    console.log(e.target.value)
     this.props.onChangeBook(e.target.value)
   }
   componentDidMount() {
@@ -35,17 +36,11 @@ class Book extends Component {
   }
 
   render() {
-    const	{
-        onChangeBook, books, children,
-      } = this.props,
+    const	{ onChangeBook, children } = this.props,
       { bookMounted } = this.state
 
-    // TODO: filter the book to match with the shelf
-    // const booksWantToRead = books !== '' &&
-    // books.filter(book => book.shelf === shelfName);
-    console.log(books)
-    books.map(element => console.log(element.id))
-    if (!books) { return null }
+    if (!bookMounted) { return null }
+
     return (
       <div>
         <div className="bookshelf">
@@ -69,7 +64,10 @@ class Book extends Component {
                                 style={{
                                   width: 128,
                                   height: 193,
-                                  backgroundImage: element.imageLinks.thumbnail ? `url(${element.imageLinks.thumbnail})` : 'url(//via.placeholder.com/128x192)',
+                                  backgroundImage:
+                                  element.imageLinks.thumbnail === null && element.imageLinks.thumbnail === 0 && !element.imageLinks.thumbnail
+                                    ? 'url(//via.placeholder.com/128x192)'
+                                    : `url(${element.imageLinks.thumbnail})`,
                                 }}
                               />
                               <div className="book-shelf-changer">
@@ -87,8 +85,8 @@ class Book extends Component {
                               </div>
                             </div>
                             <div className="book-title">{element.title}</div>
-                            <div className="book-authors">{element.authors[0] !== 0 && element.authors[0] !==
-                              null ? element.authors[0] : ''}
+                            <div className="book-authors">{element.authors && element.authors[0] !== 0 && element.authors[0] !==
+                          null ? element.authors[0] : ''}
                             </div>
                             <Rating average={element.averageRating} />
                           </div>
