@@ -52,7 +52,7 @@ class Book extends Component {
           <div className="bookshelf-books">
             <ol className="books-grid">
               {
-                bookMounted ?
+                bookMounted !== null && bookMounted ?
                   bookMounted.map(element =>
                     (
                       <FadeInAnim key={element.id}>
@@ -65,7 +65,7 @@ class Book extends Component {
                                   width: 128,
                                   height: 193,
                                   backgroundImage:
-                                  element.imageLinks.thumbnail !== null && element.imageLinks.thumbnail !== 0 && element.imageLinks.thumbnail
+                                  element.imageLinks !== null && element.imageLinks !== 0 && element.imageLinks
                                     ? `url(${element.imageLinks.thumbnail})`
                                     : 'url(//via.placeholder.com/128x192)',
                                 }}
