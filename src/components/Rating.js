@@ -1,46 +1,38 @@
-import React, { Component } from 'react'
+import React from 'react'
 import starHalf from '../icons/star-half.svg'
 import star from '../icons/star.svg'
 
-export default class Rating extends Component {
-  randomId = () => Math.random().toString(6).substr(-8)
-  render() {
-    const { average } = this.props
-    const avg = isNaN(parseFloat(average))
-      ? 0
-      : [...Array(average * 2).fill(1)] // fill the array
-
-    const totalAvg = avg.length
-    // console.log(totalAvg, (totalAvg % 2))
-
-    const styleStar = {
+const Rating = ({ average }) => {
+  // var definition
+  const randomId = () => Math.random().toString(6).substr(-8),
+    styleStar = {
       width: '20px', height: '20px',
     }
+  let starDisplay = '',
+    starDisplayHalf = ''
 
-    let starDisplay = ''
-    const avare = avg.length && avg.map((element, i) => {
-      if (i === totalAvg - 1) {
-        starDisplay = (
-          <img src={starHalf} alt="star icon" style={styleStar} />
-        )
-      } else if (i % 2 === 0) {
-        // console.log('pair')
-        starDisplay = (
-          <img src={star} alt="star icon" style={styleStar} />
-        )
-      } else {
-        starDisplay = ''
+  // test if number or float number
+  if (Number.isInteger(average) && average) { // number
+    const starLoop = [...Array(average)].map((element, i) => (<img key={randomId()} src={star} alt="star icon " style={styleStar} />))
+    return starDisplay = starLoop
+  } else if (average) { // float number
+    const starLoop = [...Array(Math.floor(average)).fill(1)].map((element, i) => {
+      // console.log(i, Math.floor(average), Math.ceil(average), Math.floor(average) - 1)
+      if (i !== (Math.floor(average) - 1)) {
+        return (<img key={randomId()} src={star} alt="star icon " style={styleStar} />)
       }
-      return starDisplay = <div key={this.randomId()}>{starDisplay}</div>
+      return (<span key={randomId()}><img key={randomId()} src={star} alt="star icon " style={styleStar} /><img src={starHalf} alt="star icon " style={styleStar} /></span>)
     })
-
-    return (
-      <div>
-        <div className="rating" style={{ display: 'flex' }} >
-          {avare}
-        </div>
-      </div>
-    )
+    starDisplay = starLoop
   }
-}
 
+
+  return (
+    <div>
+      <div className="rating" style={{ display: 'flex' }} >
+        <div key={randomId()}> {starDisplay}</div>
+      </div>
+    </div>
+  )
+}
+export default Rating

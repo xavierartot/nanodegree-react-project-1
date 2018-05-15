@@ -65,9 +65,9 @@ class Book extends Component {
                                   width: 128,
                                   height: 193,
                                   backgroundImage:
-                                  element.imageLinks.thumbnail === null && element.imageLinks.thumbnail === 0 && !element.imageLinks.thumbnail
-                                    ? 'url(//via.placeholder.com/128x192)'
-                                    : `url(${element.imageLinks.thumbnail})`,
+                                  element.imageLinks.thumbnail !== null && element.imageLinks.thumbnail !== 0 && element.imageLinks.thumbnail
+                                    ? `url(${element.imageLinks.thumbnail})`
+                                    : 'url(//via.placeholder.com/128x192)',
                                 }}
                               />
                               <div className="book-shelf-changer">
