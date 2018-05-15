@@ -12,6 +12,12 @@ const FadeInAnim = styled.div`
  `
 
 class Book extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      bookMounted: this.props.books,
+    }
+  }
   static propTypes = {
     // onChangeBook: PropTypes.func.isRequired,
     // books: PropTypes.array,
@@ -22,11 +28,17 @@ class Book extends Component {
   onChange = (e) => {
     this.props.onChangeBook(e.target.value)
   }
+  componentDidMount() {
+    this.setState(() => ({
+      bookMounted: this.props.books,
+    }))
+  }
 
   render() {
     const	{
-      onChangeBook, books, children,
-    } = this.props
+        onChangeBook, books, children,
+      } = this.props,
+      { bookMounted } = this.state
 
     // TODO: filter the book to match with the shelf
     // const booksWantToRead = books !== '' &&
@@ -34,7 +46,6 @@ class Book extends Component {
     console.log(books)
     books.map(element => console.log(element.id))
     if (!books) { return null }
-    console.log(books)
     return (
       <div>
         <div className="bookshelf">
@@ -46,8 +57,8 @@ class Book extends Component {
           <div className="bookshelf-books">
             <ol className="books-grid">
               {
-                books ?
-                  books.map(element =>
+                bookMounted ?
+                  bookMounted.map(element =>
                     (
                       <FadeInAnim key={element.id}>
                         <li>

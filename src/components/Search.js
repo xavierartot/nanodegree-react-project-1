@@ -74,7 +74,6 @@ export default class Search extends Component {
 	          </div>
 	        </div>
 	        <div className="search-books-results">
-
 	          <div className="bookshelf-books">
 	            <ol className="books-grid">
 	              {
