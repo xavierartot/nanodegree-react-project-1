@@ -14,6 +14,7 @@ export default class Search extends Component {
     this.state = {
       booksSearch: null,
       searchTerm: DEFAULT_QUERY,
+      error: null,
     }
   }
   static propTypes = {
@@ -51,7 +52,7 @@ export default class Search extends Component {
 	}
 
 	render() {
-	  const { booksSearch } = this.state
+	  const { booksSearch, error } = this.state
 	  console.log('render', booksSearch)
 
 	  return (
@@ -74,7 +75,11 @@ export default class Search extends Component {
 	        </div>
 	        <div className="search-books-results">
 	          <div className="bookshelf-books">
-	            {
+	            {error
+	              ? <div className="interactions">
+	                <p>Something went wrong.</p>
+                 </div>
+	              :
 	              booksSearch !== null && booksSearch ?
 	                <Book
 	                  onChangeBook={this.props.onChangeBookSearch}
