@@ -16,13 +16,9 @@ const Rating = ({ average }) => {
     const starLoop = [...Array(average)].map((element, i) => (<img key={randomId()} src={star} alt="star icon " style={styleStar} />))
     return starDisplay = starLoop
   } else if (average) { // float number
-    const starLoop = [...Array(Math.floor(average)).fill(1)].map((element, i) => {
-      // console.log(i, Math.floor(average), Math.ceil(average), Math.floor(average) - 1)
-      if (i !== (Math.floor(average) - 1)) {
-        return (<img key={randomId()} src={star} alt="star icon " style={styleStar} />)
-      }
-      return (<span key={randomId()}><img key={randomId()} src={star} alt="star icon " style={styleStar} /><img src={starHalf} alt="star icon " style={styleStar} /></span>)
-    })
+    const starLoop = [...Array(Math.floor(average)).fill(1)].map((element, i) =>
+      (<img key={randomId()} src={star} alt="star icon " style={styleStar} />))
+    starLoop.push(<img key={randomId()} src={starHalf} alt="star icon " style={styleStar} />)
     starDisplay = starLoop
   }
 
