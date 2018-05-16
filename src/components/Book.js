@@ -36,12 +36,13 @@ class Book extends Component {
   }
 
   render() {
-    const	{ onChangeBook, children } = this.props,
+    const	{ onChangeBook, children, books } = this.props,
       { bookMounted } = this.state
 
     if (!bookMounted) { return null }
 
-    console.log(bookMounted, bookMounted.error)
+    console.log(bookMounted, bookMounted.error, books)
+
     if (bookMounted.error === 'empty query') { return null }
 
     return (

@@ -44,7 +44,13 @@ export default class BooksApp extends React.Component {
           if (book.id === id) { book.shelf = value }
           return book
         })
-        this.handleBooks(books)// TODO: update state then recall the render method
+      }).then(() => {
+        BooksAPI.getAll()// fetchind the data from remote server
+          .then((books) => { // with the answer we're calling setState
+            this.handleBooks(books)// update state then recall the render method
+          })
+          .catch(error =>
+            this.setState(() => ({ error })))
       })
       .catch(error => this.setState(() => ({ error })))
   }// end handleChangeBook(target)

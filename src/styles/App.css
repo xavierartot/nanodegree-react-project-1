@@ -188,3 +188,9 @@ body, .app {
  .nav-color{
    color: #fff;
 }
+.star {
+  margin-right: 4px;
+}
+.star svg:hover{
+  fill: orange !important;
+}
