@@ -62,7 +62,6 @@ export default class Search extends Component {
 	            className="close-search"
 	            to={{
 	              pathname: '/',
-	              state: { searchUpdate: true },
 	            }}
 	          >
           Close btn back to Home
