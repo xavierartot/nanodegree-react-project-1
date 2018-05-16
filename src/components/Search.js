@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 // API
 import * as BooksAPI from '../server/BooksAPI'
 import Book from './Book'
-import Rating from './Rating'
 
 const DEFAULT_QUERY = ''
 
@@ -25,7 +24,7 @@ export default class Search extends Component {
   componentDidMount() {
     const { searchTerm } = this.state
     this.fetchSearchBook(searchTerm)
-	  console.log('cdm', searchTerm)
+    // console.log('cdm', searchTerm)
     // console.log(booksSearch)
   }
 
@@ -38,7 +37,7 @@ export default class Search extends Component {
 	  BooksAPI.search(e)// TODO: update BooksAPI
 	    .then((booksSearch) => {
         this.setSearchBook(booksSearch)
-        console.log(booksSearch)
+        // console.log(booksSearch)
 	    })
 	    .catch(error => this.setState(() => ({ error })))
   }
@@ -48,20 +47,23 @@ export default class Search extends Component {
 	  this.setState(() => ({
 	    searchTerm: e.trim(),
 	  }))
-	  console.log('update: ', this.state.searchTerm, e)
+	  // console.log('update: ', this.state.searchTerm, e)
 	}
 
 	render() {
 	  const { booksSearch, error } = this.state
-	  console.log('render', booksSearch)
+	  // console.log('render', booksSearch)
 
 	  return (
 	    <div>
 	      <div className="search-books">
 	        <div className="search-books-bar">
 	          <Link
-	            to="/"
 	            className="close-search"
+	            to={{
+	              pathname: '/',
+	              state: { searchUpdate: true },
+	            }}
 	          >
           Close btn back to Home
 	          </Link>
@@ -80,9 +82,10 @@ export default class Search extends Component {
 	                <p>Something went wrong.</p>
                  </div>
 	              :
-	              booksSearch !== null && booksSearch ?
+	              booksSearch !== null && booksSearch && booksSearch !== 0 ?
 	                <Book
 	                  onChangeBook={this.props.onChangeBookSearch}
+	                  error={error}
 	                  books={booksSearch}
 	                />
 	                : ''

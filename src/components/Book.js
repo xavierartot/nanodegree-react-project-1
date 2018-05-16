@@ -41,6 +41,9 @@ class Book extends Component {
 
     if (!bookMounted) { return null }
 
+    console.log(bookMounted, bookMounted.error)
+    if (bookMounted.error === 'empty query') { return null }
+
     return (
       <div>
         <div className="bookshelf">
@@ -52,7 +55,7 @@ class Book extends Component {
           <div className="bookshelf-books">
             <ol className="books-grid">
               {
-                bookMounted !== null && bookMounted ?
+	              bookMounted !== null && bookMounted && bookMounted !== 0 ?
                   bookMounted.map(element =>
                     (
                       <FadeInAnim key={element.id}>

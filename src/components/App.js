@@ -14,15 +14,18 @@ export default class BooksApp extends React.Component {
   state = {
     books: [],
     error: null,
+    searchUpdate: false,
   }
 
   handleBooks = (books) => {
-    this.setState(() => ({
+    this.setState({
       books,
-    }))
+    })
+    console.log(books, this.state.books)
   }
 
   componentDidMount() { // TODO: fetch data after the component mouted
+    console.log(1)
     BooksAPI.getAll()// fetchind the data from remote server
       .then((books) => { // with the answer we're calling setState
         this.handleBooks(books)// update state then recall the render method
@@ -34,7 +37,7 @@ export default class BooksApp extends React.Component {
   handleChangeBook = (e) => { // TODO: update a <select> element and the states
     const value = e.target.value,
       id = e.target.id
-    // console.log(value, id, e)
+      // console.log(value, id, e)
 
     BooksAPI.update({ id }, value)// TODO: update BooksAPI
       .then((obj) => {

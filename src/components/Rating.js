@@ -8,8 +8,7 @@ const Rating = ({ average }) => {
     styleStar = {
       width: '20px', height: '20px',
     }
-  let starDisplay = '',
-    starDisplayHalf = ''
+  let starDisplay = ''
 
   // test if number or float number
   if (Number.isInteger(average) && average) { // number
