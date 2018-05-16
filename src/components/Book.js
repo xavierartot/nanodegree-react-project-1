@@ -78,9 +78,9 @@ class Book extends Component {
                                   name="select"
                                   onChange={e => onChangeBook(e)}
                                   id={element.id}
-                                  value={element.shelf}
+                                  value={element.shelf === '' ? 'none' : element.shelf}
                                 >
-                                  <option value="none" disabled>Move to...</option>
+                                  <option value="none">Move to...</option>
                                   <option value="currentlyReading">Currently Reading</option>
                                   <option value="wantToRead">Want to Read</option>
                                   <option value="read">Read</option>
