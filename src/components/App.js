@@ -23,7 +23,7 @@ export default class BooksApp extends React.Component {
     // console.log(books, this.state.books)
   }
 
-  componentDidMount() { // TODO: fetch data after the component mouted
+  getAllBooksAPI = () => {
     BooksAPI.getAll()// fetchind the data from remote server
       .then((books) => { // with the answer we're calling setState
         this.handleBooks(books)// update state then recall the render method
@@ -32,25 +32,16 @@ export default class BooksApp extends React.Component {
         this.setState(() => ({ error })))
   }
 
+  componentDidMount() { // TODO: fetch data after the component mouted
+    this.getAllBooksAPI()
+  }
+
   handleChangeBook = (e) => { // TODO: update a <select> element and the states
     const value = e.target.value,
       id = e.target.id
-      // console.log(value, id, e)
-
     BooksAPI.update({ id }, value)// TODO: update BooksAPI
-      .then((obj) => {
-        // TODO: update books in the state
-        const books = this.state.books.map((book) => {
-          if (book.id === id) { book.shelf = value }
-          return book
-        })
-      }).then(() => {
-        BooksAPI.getAll()// fetchind the data from remote server
-          .then((books) => { // with the answer we're calling setState
-            this.handleBooks(books)// update state then recall the render method
-          })
-          .catch(error =>
-            this.setState(() => ({ error })))
+      .then(() => {
+        this.getAllBooksAPI() // reload books state
       })
       .catch(error => this.setState(() => ({ error })))
   }// end handleChangeBook(target)
