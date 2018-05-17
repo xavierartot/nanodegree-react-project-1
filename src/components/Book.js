@@ -26,7 +26,7 @@ class Book extends Component {
 
   // TODO: call a method live in the controleur component
   onChange = (e) => {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     this.props.onChangeBook(e.target.value)
   }
   componentDidMount() {
@@ -35,13 +35,17 @@ class Book extends Component {
     }))
   }
 
+  handleUpdateRating = (e) => {
+    const list = [...e.target.classList].map(element => element)
+    console.log(list, list[0], list[1])
+  }
   render() {
     const	{ onChangeBook, children, books } = this.props,
       { bookMounted } = this.state
 
     if (!bookMounted) { return null }
 
-    console.log(bookMounted, bookMounted.error, books)
+    // console.log(bookMounted, bookMounted.error, books)
 
     if (bookMounted.error === 'empty query') { return null }
 
@@ -92,7 +96,12 @@ class Book extends Component {
                             <div className="book-authors">{element.authors && element.authors[0] !== 0 && element.authors[0] !==
                           null ? element.authors[0] : ''}
                             </div>
-                            <Rating average={element.averageRating} />
+                            <Rating
+                              average={element.averageRating}
+                              onClickRating={this.handleUpdateRating}
+                              idBook={element.id}
+                              nameShelf={element.shelf === '' ? 'none' : element.shelf}
+                            />
                           </div>
                         </li>
                       </FadeInAnim>
