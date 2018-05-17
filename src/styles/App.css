@@ -192,6 +192,6 @@ body, .app {
   margin-right: 4px;
   cursor: pointer;
 }
-.star svg:hover{
+.star:hover svg{
   fill: orange !important;
 }
