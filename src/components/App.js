@@ -8,6 +8,8 @@ import '../styles/App.css'
 import Header from './Header'
 import Book from './Book'
 import Search from './Search'
+// UTILITIES
+import { randomId } from '../../src/Utilities.js'
 
 export default class BooksApp extends React.Component {
   // init state
@@ -46,15 +48,12 @@ export default class BooksApp extends React.Component {
       .catch(error => this.setState(() => ({ error })))
   }// end handleChangeBook(target)
 
-  // random id to use with shelves
-  randomId = () => Math.random().toString(6).substr(-8)
-
   render() {
     const { books, error } = this.state,
       shelves = [ // TODO: property for <Book>
-        { id: this.randomId(), shelf: 'wantToRead', title: 'Want to Read' },
-        { id: this.randomId(), shelf: 'currentlyReading', title: 'Currently Reading' },
-        { id: this.randomId(), shelf: 'read', title: 'Read' },
+        { id: randomId(), shelf: 'wantToRead', title: 'Want to Read' },
+        { id: randomId(), shelf: 'currentlyReading', title: 'Currently Reading' },
+        { id: randomId(), shelf: 'read', title: 'Read' },
       ]
     return (
       <div className="app">

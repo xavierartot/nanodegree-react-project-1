@@ -1,15 +1,11 @@
 import React from 'react'
-// import starHalf from '../icons/star-half.svg'
-// import halfLeft from '../icons/halfLeft.svg'
-// import halfRight from '../icons/halfRight.svg'
-// import star from '../icons/star.svg'
+import { randomId } from '../../src/Utilities.js'
 
 const Rating = ({ average }) => {
   // var definition
-  const randomId = () => Math.random().toString(6).substr(-8),
-    styleStar = {
-      width: '10px', height: '20px', fill: '#82e370',
-    }
+  const styleStar = {
+    width: '10px', height: '20px', fill: '#82e370',
+  }
   let starDisplay = '',
     starLoop = []
 
@@ -31,7 +27,6 @@ const Rating = ({ average }) => {
     starLoop.push(<span className="star" key={randomId()} ><svg style={styleStar} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 267.5 511.93"><defs /><path className="cls-1" d="M267.5,0a31.63,31.63,0,0,0-28.7,17.8L173.5,150.2,27.4,171.4C1.2,175.2-9.3,207.5,9.7,226L115.4,329l-25,145.5c-4.5,26.1,23,46,46.4,33.7l130.7-68.6Z" /></svg></span>)
     return starDisplay = starLoop
   }
-
 
   return (
     <div>
