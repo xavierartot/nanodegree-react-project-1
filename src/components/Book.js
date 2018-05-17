@@ -19,8 +19,8 @@ class Book extends Component {
     }
   }
   static propTypes = {
-    // onChangeBook: PropTypes.func.isRequired,
-    // books: PropTypes.array,
+    onChangeBook: PropTypes.func.isRequired,
+    books: PropTypes.array,
     children: PropTypes.string,
   }
 
