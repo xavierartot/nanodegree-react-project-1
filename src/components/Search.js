@@ -37,7 +37,6 @@ export default class Search extends Component {
 	  BooksAPI.search(e)// TODO: update BooksAPI
 	    .then((booksSearch) => {
         this.setSearchBook(booksSearch)
-        // console.log(booksSearch)
 	    })
 	    .catch(error => this.setState(() => ({ error })))
   }
@@ -51,8 +50,21 @@ export default class Search extends Component {
 	}
 
 	render() {
-	  const { booksSearch, error } = this.state
-	  // console.log('render', booksSearch)
+	  const { booksSearch, error } = this.state,
+	    { books } = this.props
+	  let booksSameShelf = '',
+	    bookUpdateShelf = []
+
+	  // find the shelf share in the search and App
+	  if (booksSearch !== undefined && booksSearch !== null) {
+	    for (let i = 0, len = books.length; i < len; i++) {
+	      for (let j = 0, l = booksSearch.length; j < l; j++) {
+	        if (books[i].id === booksSearch[j].id) {
+	          bookUpdateShelf.push(books[i])
+	        }
+	      }
+	    }
+	  }
 
 	  return (
 	    <div>
@@ -86,6 +98,7 @@ export default class Search extends Component {
 	                  onChangeBook={this.props.onChangeBookSearch}
 	                  error={error}
 	                  books={booksSearch}
+	                  booksSameShelf={bookUpdateShelf}
 	                />
 	                : ''
 	            }

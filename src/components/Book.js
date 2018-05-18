@@ -39,8 +39,20 @@ class Book extends Component {
     const list = [...e.target.classList].map(element => element)
     console.log(list, list[0], list[1])
   }
+  selectShelf = (elementId) => {
+    const	{
+      booksSameShelf,
+    } = this.props
+    for (let j = 0, l = booksSameShelf.length; j < l; j++) {
+      if (elementId === booksSameShelf[j].id) {
+        return booksSameShelf[j].shelf
+      }
+    }
+  }
   render() {
-    const	{ onChangeBook, children, books } = this.props,
+    const	{
+        onChangeBook, children, books, booksSameShelf,
+      } = this.props,
       { bookMounted } = this.state
 
     if (!bookMounted) { return null }
@@ -48,6 +60,7 @@ class Book extends Component {
     // console.log(bookMounted, bookMounted.error, books)
 
     if (bookMounted.error === 'empty query') { return null }
+
 
     return (
       <div>
@@ -78,12 +91,13 @@ class Book extends Component {
                                     : 'url(//via.placeholder.com/128x192)',
                                 }}
                               />
+
                               <div className="book-shelf-changer">
                                 <select
                                   name="select"
                                   onChange={e => onChangeBook(e)}
                                   id={element.id}
-                                  value={element.shelf === '' ? 'none' : element.shelf}
+                                  value={element.shelf ? element.shelf : this.selectShelf(element.id)}
                                 >
                                   <option value="none">Move to...</option>
                                   <option value="currentlyReading">Currently Reading</option>
