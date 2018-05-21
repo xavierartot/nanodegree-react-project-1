@@ -37,15 +37,15 @@ export default class Search extends Component {
 	  BooksAPI.search(e)// TODO: update BooksAPI
 	    .then((booksSearch) => {
         this.setSearchBook(booksSearch)
-	    })
+	    }).then(() =>
+        this.setState(() => ({
+          searchTerm: e.trim(),
+        })))
 	    .catch(error => this.setState(() => ({ error })))
   }
 
 	updateQuery = (e) => {
 	  this.fetchSearchBook(e)
-	  this.setState(() => ({
-	    searchTerm: e.trim(),
-	  }))
 	  // console.log('update: ', this.state.searchTerm, e)
 	}
 
@@ -65,16 +65,16 @@ export default class Search extends Component {
 	      }
 	    }
 	  }
-	  if (!Array.isArray(booksSearch)) {
-	    if (booksSearch !== undefined) {
-	      console.log(booksSearch.error)
-	    } else {
-	    console.log(booksSearch)
-	    }
-	    // return null
-	  } else {
-	    console.log(booksSearch)
-	  }
+	  // if (!Array.isArray(booksSearch)) {
+	  // if (booksSearch !== undefined) {
+	  // console.log(booksSearch.error)
+	  // } else {
+	  // console.log(booksSearch)
+	  // }
+	  // // return null
+	  // } else {
+	  // console.log(booksSearch)
+	  // }
 
 	  return (
 	    <div>
