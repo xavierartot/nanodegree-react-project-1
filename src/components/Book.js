@@ -20,7 +20,7 @@ class Book extends Component {
   }
   static propTypes = {
     onChangeBook: PropTypes.func.isRequired,
-    books: PropTypes.array,
+    // books: PropTypes.array,
     children: PropTypes.string,
   }
 
@@ -51,15 +51,16 @@ class Book extends Component {
   }
   render() {
     const	{
-        onChangeBook, children, books, booksSameShelf,
+        onChangeBook, children, books, booksSameShelf, error,
       } = this.props,
       { bookMounted } = this.state
 
     if (!bookMounted) { return null }
 
-    // console.log(bookMounted, bookMounted.error, books)
+    // console.log('1', bookMounted, '2', books, '3', error)
 
     if (bookMounted.error === 'empty query') { return null }
+    // console.log('empty', bookMounted.error)
 
 
     return (

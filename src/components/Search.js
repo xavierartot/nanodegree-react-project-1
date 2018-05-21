@@ -11,7 +11,7 @@ export default class Search extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      booksSearch: null,
+      booksSearch: '',
       searchTerm: DEFAULT_QUERY,
       error: null,
     }
@@ -65,6 +65,14 @@ export default class Search extends Component {
 	      }
 	    }
 	  }
+	    console.log(booksSearch)
+	  if (!Array.isArray(booksSearch)) {
+	    console.log(booksSearch)
+	    if (booksSearch !== undefined) {
+	    console.log(booksSearch.error)
+	    }
+	    // return null
+	  }
 
 	  return (
 	    <div>
@@ -88,19 +96,18 @@ export default class Search extends Component {
 	        </div>
 	        <div className="search-books-results">
 	          <div className="bookshelf-books">
-	            {error
-	              ? <div className="interactions">
-	                <p>Something went wrong.</p>
-                 </div>
+	            {!Array.isArray(booksSearch) && booksSearch !== undefined
+	              ?
+	              <div className="interactions">
+	                <p>wrong search</p>
+	              </div>
 	              :
-	              booksSearch !== null && booksSearch && booksSearch !== 0 ?
 	                <Book
 	                  onChangeBook={this.props.onChangeBookSearch}
 	                  error={error}
 	                  books={booksSearch}
 	                  booksSameShelf={bookUpdateShelf}
 	                />
-	                : ''
 	            }
 	          </div>
 	        </div>

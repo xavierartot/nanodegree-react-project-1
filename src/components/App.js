@@ -45,7 +45,10 @@ export default class BooksApp extends React.Component {
       .then(() => {
         this.getAllBooksAPI() // reload books state
       })
-      .catch(error => this.setState(() => ({ error })))
+      .catch((error) => {
+        this.setState(() => ({ error }))
+        console.log(error)
+      })
   }// end handleChangeBook(target)
 
   render() {
@@ -55,6 +58,7 @@ export default class BooksApp extends React.Component {
         { id: randomId(), shelf: 'currentlyReading', title: 'Currently Reading' },
         { id: randomId(), shelf: 'read', title: 'Read' },
       ]
+    // console.log('state', error)
     return (
       <div className="app">
         <Route
@@ -71,10 +75,11 @@ export default class BooksApp extends React.Component {
               exact
               path="/search"
               render={() => (
-                (books &&
+                (books && books !== null &&
                 <Search
                   onChangeBookSearch={this.handleChangeBook}
                   books={books}
+                  error={error}
                 />
                 ) || null // the render is called before componentDidMount(), setState reload render()
               )}
