@@ -65,13 +65,16 @@ export default class Search extends Component {
 	      }
 	    }
 	  }
-	    console.log(booksSearch)
+	  console.log(booksSearch)
 	  if (!Array.isArray(booksSearch)) {
-	    console.log(booksSearch)
 	    if (booksSearch !== undefined) {
 	    console.log(booksSearch.error)
+	    } else {
+	    console.log(booksSearch)
 	    }
 	    // return null
+	  } else {
+	    console.log(booksSearch)
 	  }
 
 	  return (
@@ -96,18 +99,20 @@ export default class Search extends Component {
 	        </div>
 	        <div className="search-books-results">
 	          <div className="bookshelf-books">
-	            {!Array.isArray(booksSearch) && booksSearch !== undefined
+	            {Array.isArray(booksSearch) && booksSearch !== undefined
 	              ?
-	              <div className="interactions">
-	                <p>wrong search</p>
-	              </div>
-	              :
 	                <Book
 	                  onChangeBook={this.props.onChangeBookSearch}
 	                  error={error}
 	                  books={booksSearch}
 	                  booksSameShelf={bookUpdateShelf}
 	                />
+	              :
+	              Array.isArray(booksSearch) === false ?
+	                '  ' :
+	              <div className="interactions">
+	                <p>wrong search</p>
+	              </div>
 	            }
 	          </div>
 	        </div>
