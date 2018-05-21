@@ -50,7 +50,7 @@ export default class Search extends Component {
 	}
 
 	render() {
-	  const { booksSearch, error } = this.state,
+	  const { booksSearch, error, searchTerm } = this.state,
 	    { books } = this.props
 	  let booksSameShelf = '',
 	    bookUpdateShelf = []
@@ -65,10 +65,9 @@ export default class Search extends Component {
 	      }
 	    }
 	  }
-	  console.log(booksSearch)
 	  if (!Array.isArray(booksSearch)) {
 	    if (booksSearch !== undefined) {
-	    console.log(booksSearch.error)
+	      console.log(booksSearch.error)
 	    } else {
 	    console.log(booksSearch)
 	    }
@@ -99,7 +98,7 @@ export default class Search extends Component {
 	        </div>
 	        <div className="search-books-results">
 	          <div className="bookshelf-books">
-	            {Array.isArray(booksSearch) && booksSearch !== undefined
+	            {Array.isArray(booksSearch) === true && booksSearch !== undefined
 	              ?
 	                <Book
 	                  onChangeBook={this.props.onChangeBookSearch}
@@ -108,11 +107,11 @@ export default class Search extends Component {
 	                  booksSameShelf={bookUpdateShelf}
 	                />
 	              :
-	              Array.isArray(booksSearch) === false ?
-	                '  ' :
+	              searchTerm !== '' ?
 	              <div className="interactions">
-	                <p>wrong search</p>
+	                <p>wrong search: No books is found related to <span className="font-weight-bold">{searchTerm }</span>  </p>
 	              </div>
+	                : ''
 	            }
 	          </div>
 	        </div>
