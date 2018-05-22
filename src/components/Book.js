@@ -86,7 +86,7 @@ class Book extends Component {
                                   name="select"
                                   onChange={e => onChangeBook(e)} // this.props.onChangeBook
                                   id={element.id}
-                                  value={element.shelf ? 'None' : this.selectShelf(element.id)}
+                                  value={element.shelf ? 'none' : this.selectShelf(element.id)}
                                 >
                                   <option value="none">Move to...</option>
                                   <option value="currentlyReading">Currently Reading</option>

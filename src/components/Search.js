@@ -52,9 +52,8 @@ export default class Search extends Component {
 
 	render() {
 	  const { booksSearch, error, searchTerm } = this.state,
-	    { books } = this.props
-	  let booksSameShelf = '',
-	    bookUpdateShelf = []
+	    { books } = this.props,
+	     bookUpdateShelf = []
 
 	  // find the shelf share in the search and App
 	  if (booksSearch !== undefined && booksSearch !== null) {
