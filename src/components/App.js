@@ -121,3 +121,9 @@ export default class BooksApp extends React.Component {
     )
   }
 }
+
+export {
+  Header,
+  Book,
+  Search,
+}

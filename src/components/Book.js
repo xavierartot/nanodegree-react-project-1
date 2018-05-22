@@ -12,27 +12,16 @@ const FadeInAnim = styled.div`
  `
 
 class Book extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      bookMounted: this.props.books,
-    }
-  }
   static propTypes = {
     onChangeBook: PropTypes.func.isRequired,
     // books: PropTypes.array,
     children: PropTypes.string,
   }
 
-  // TODO: call a method live in the controleur component
+  // TODO: call a method live in the controleur component App/
   onChange = (e) => {
     // console.log(e.target.value)
     this.props.onChangeBook(e.target.value)
-  }
-  componentDidMount() {
-    this.setState(() => ({
-      bookMounted: this.props.books,
-    }))
   }
 
   handleUpdateRating = (e) => {
@@ -43,25 +32,24 @@ class Book extends Component {
     const	{
       booksSameShelf,
     } = this.props
+    // console.log(booksSameShelf.length, booksSameShelf)
     for (let j = 0, l = booksSameShelf.length; j < l; j++) {
       if (elementId === booksSameShelf[j].id) {
         return booksSameShelf[j].shelf
       }
     }
   }
+
   render() {
     const	{
-        onChangeBook, children, books, booksSameShelf, error,
+        onChangeBook, children, books,
       } = this.props,
-      { bookMounted } = this.state
+      bookMounted = books
 
     if (!bookMounted) { return null }
-
     // console.log('1', bookMounted, '2', books, '3', error)
-
     if (bookMounted.error === 'empty query') { return null }
     // console.log('empty', bookMounted.error)
-
 
     return (
       <div>
@@ -96,14 +84,15 @@ class Book extends Component {
                               <div className="book-shelf-changer">
                                 <select
                                   name="select"
-                                  onChange={e => onChangeBook(e)}
+                                  onChange={e => onChangeBook(e)} // this.props.onChangeBook
                                   id={element.id}
-                                  value={element.shelf ? element.shelf : this.selectShelf(element.id)}
+                                  value={element.shelf ? 'None' : this.selectShelf(element.id)}
                                 >
                                   <option value="none">Move to...</option>
                                   <option value="currentlyReading">Currently Reading</option>
                                   <option value="wantToRead">Want to Read</option>
                                   <option value="read">Read</option>
+                                  <option value="none">None</option>
                                 </select>
                               </div>
                             </div>

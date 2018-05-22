@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+// import _ from 'lodash'
 // API
 import * as BooksAPI from '../server/BooksAPI'
 import Book from './Book'
@@ -57,6 +58,13 @@ export default class Search extends Component {
 
 	  // find the shelf share in the search and App
 	  if (booksSearch !== undefined && booksSearch !== null) {
+	    // console.log(books)
+	    // console.log(booksSearch)
+	    // bookUpdateShelf = books.filter((element) => {
+	    // booksSearch.includes(element)
+	    // })
+
+	    // console.log(bookUpdateShelf)
 	    for (let i = 0, len = books.length; i < len; i++) {
 	      for (let j = 0, l = booksSearch.length; j < l; j++) {
 	        if (books[i].id === booksSearch[j].id) {
@@ -65,6 +73,7 @@ export default class Search extends Component {
 	      }
 	    }
 	  }
+
 	  // if (!Array.isArray(booksSearch)) {
 	  // if (booksSearch !== undefined) {
 	  // console.log(booksSearch.error)
