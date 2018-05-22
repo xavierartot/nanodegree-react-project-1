@@ -8,14 +8,17 @@ import '../styles/App.css'
 import Header from './Header'
 import Book from './Book'
 import Search from './Search'
+import Loading from './Loading'
 // UTILITIES
 import { randomId } from '../../src/Utilities.js'
 
 export default class BooksApp extends React.Component {
+  _isMounted = false
   // init state
   state = {
     books: [],
     error: null,
+    isLoading: false,
   }
 
   handleBooks = (books) => {
@@ -29,12 +32,18 @@ export default class BooksApp extends React.Component {
     BooksAPI.getAll()// fetchind the data from remote server
       .then((books) => { // with the answer we're calling setState
         this.handleBooks(books)// update state then recall the render method
+        this.setState(() => ({
+          isLoading: false,
+        }))
       })
       .catch(error =>
         this.setState(() => ({ error })))
   }
 
   componentDidMount() { // TODO: fetch data after the component mouted
+    this.setState(() => ({
+      isLoading: true,
+    }))
     this.getAllBooksAPI()
   }
 
@@ -52,7 +61,7 @@ export default class BooksApp extends React.Component {
   }// end handleChangeBook(target)
 
   render() {
-    const { books, error } = this.state,
+    const { books, error, isLoading } = this.state,
       shelves = [ // TODO: property for <Book>
         { id: randomId(), shelf: 'wantToRead', title: 'Want to Read' },
         { id: randomId(), shelf: 'currentlyReading', title: 'Currently Reading' },
@@ -65,35 +74,37 @@ export default class BooksApp extends React.Component {
           path="/"
           component={Header}
         />
-        {error
-          ? <div className="interactions">
-            <p>Something went wrong.</p>
-          </div>
-          :
-          (<div>
-            <Route
-              exact
-              path="/search"
-              render={() => (
-                (books && books !== null &&
+        {
+          isLoading ? <Loading /> :
+            error
+              ? <div className="interactions">
+                <p>Something went wrong.</p>
+                </div>
+              :
+              (<div>
+                <Route
+                  exact
+                  path="/search"
+                  render={() => (
+                    (books && books !== null &&
                 <Search
                   onChangeBookSearch={this.handleChangeBook}
                   books={books}
                   error={error}
                 />
-                ) || null // the render is called before componentDidMount(), setState reload render()
-              )}
-            />
-            <Route
-              exact
-              path="/"
-              render={() => (
-                <div className="list-books">
-                  <div className="list-books-content">
-                    <div>
-                      <div>
-                        {
-                          (books &&
+                    ) || null // the render is called before componentDidMount(), setState reload render()
+                  )}
+                />
+                <Route
+                  exact
+                  path="/"
+                  render={() => (
+                    <div className="list-books">
+                      <div className="list-books-content">
+                        <div>
+                          <div>
+                            {
+                              (books &&
                       // map <Book and pass props
                       shelves.map(shelfCollect =>
                         (<Book
@@ -103,27 +114,21 @@ export default class BooksApp extends React.Component {
                         >
                           {shelfCollect.title}
                          </Book>))
-                          ) || null // the render is called before componentDidMount(), setState reload render()
-                        }
+                              ) || null // the render is called before componentDidMount(), setState reload render()
+                            }
+                          </div>
+                        </div>
+                      </div>
+                      <div className="open-search">
+                        <Link to="/search">
+                  Add a book
+                        </Link>
                       </div>
                     </div>
-                  </div>
-                  <div className="open-search">
-                    <Link to="/search">
-                  Add a book
-                    </Link>
-                  </div>
-                </div>
-              )} // render Route END
-            />
-           </div>)}
+                  )} // render Route END
+                />
+               </div>)}
       </div>
     )
   }
-}
-
-export {
-  Header,
-  Book,
-  Search,
 }

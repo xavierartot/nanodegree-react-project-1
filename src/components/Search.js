@@ -24,6 +24,9 @@ export default class Search extends Component {
 
   componentDidMount() {
     const { searchTerm } = this.state
+    if (this.input) {
+      this.input.focus()
+    }
     this.fetchSearchBook(searchTerm)
     // console.log('cdm', searchTerm)
     // console.log(booksSearch)
@@ -100,6 +103,7 @@ export default class Search extends Component {
 	            <input
 	              type="text"
 	              placeholder="Search by title"
+	              ref={(node) => { this.input = node }}
 	              onChange={event => this.updateQuery(event.target.value)}
 	            />
 	          </div>
