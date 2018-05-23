@@ -42,14 +42,13 @@ class Book extends Component {
 
   render() {
     const	{
-        onChangeBook, children, books,
-      } = this.props,
-      bookMounted = books
+      onChangeBook, children, books,
+    } = this.props
 
-    if (!bookMounted) { return null }
-    // console.log('1', bookMounted, '2', books, '3', error)
-    if (bookMounted.error === 'empty query') { return null }
-    // console.log('empty', bookMounted.error)
+    if (!books || books.error === 'empty query') { return null }
+    // console.log('1', books, '2', books, '3', error)
+    // if (books.error === 'empty query') { return null }
+    // console.log('empty', books.error)
 
     return (
       <div>
@@ -62,8 +61,8 @@ class Book extends Component {
           <div className="bookshelf-books">
             <ol className="books-grid">
               {
-	              bookMounted !== null && bookMounted && bookMounted !== 0 ?
-                  bookMounted.map(element =>
+	              books !== null && books && books !== 0 ?
+                  books.map(element =>
                     (
                       <FadeInAnim key={element.id}>
                         <li>
@@ -86,13 +85,12 @@ class Book extends Component {
                                   name="select"
                                   onChange={e => onChangeBook(e)} // this.props.onChangeBook
                                   id={element.id}
-                                  value={element.shelf ? 'none' : this.selectShelf(element.id)}
+                                  value={element.shelf ? element.shelf : this.selectShelf(element.id)}
                                 >
                                   <option value="none">Move to...</option>
                                   <option value="currentlyReading">Currently Reading</option>
                                   <option value="wantToRead">Want to Read</option>
                                   <option value="read">Read</option>
-                                  <option value="none">None</option>
                                 </select>
                               </div>
                             </div>

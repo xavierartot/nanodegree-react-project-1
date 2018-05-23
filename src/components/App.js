@@ -13,14 +13,11 @@ import Loading from './Loading'
 import { randomId } from '../../src/Utilities.js'
 
 export default class BooksApp extends React.Component {
-  _isMounted = false
-  // init state
   state = {
     books: [],
     error: null,
     isLoading: false,
   }
-
   handleBooks = (books) => {
     this.setState({
       books,
