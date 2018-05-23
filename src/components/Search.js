@@ -71,11 +71,10 @@ export default class Search extends Component {
 
 	  // find the shelf share in the search and App
 	  if (booksSearch && booksSearch !== null && !booksSearch.error) {
-	    console.log(1)
 	    bookUpdateShelf = books.filter(element => booksSearch.some(ele => ele.id === element.id))
-	    console.log(bookUpdateShelf)
+	    // console.log(bookUpdateShelf)
 	  }
-
+	  // forEach
 	  // books.forEach(element => booksSearch.map((ele) => {
 	  // if (element.id === ele.id) {
 	  // return bookUpdateShelf.push(element)

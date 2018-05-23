@@ -33,13 +33,14 @@ class Book extends Component {
       booksSameShelf,
     } = this.props
     // console.log(booksSameShelf.length, booksSameShelf)
-    for (let j = 0, l = booksSameShelf.length; j < l; j++) {
-      if (elementId === booksSameShelf[j].id) {
-        return booksSameShelf[j].shelf
-      }
-    }
+    const book = booksSameShelf.find(bk => bk.id === elementId)
+    return book ? book.shelf : 'none'
+    // for (let j = 0, l = booksSameShelf.length; j < l; j++) {
+    // if (elementId === booksSameShelf[j].id) {
+    // return booksSameShelf[j].shelf
+    // }
+    // }
   }
-
   render() {
     const	{
       onChangeBook, children, books,
@@ -87,10 +88,11 @@ class Book extends Component {
                                   id={element.id}
                                   value={element.shelf ? element.shelf : this.selectShelf(element.id)}
                                 >
-                                  <option value="none">Move to...</option>
+                                  <option value="moveto">Move to...</option>
                                   <option value="currentlyReading">Currently Reading</option>
                                   <option value="wantToRead">Want to Read</option>
                                   <option value="read">Read</option>
+                                  <option value="none">Read</option>
                                 </select>
                               </div>
                             </div>
