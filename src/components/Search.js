@@ -58,18 +58,6 @@ export default class Search extends Component {
 	    { books } = this.props
 	     let bookUpdateShelf = []
 
-	  // find the shelf share in the search and App
-	  if (booksSearch && booksSearch !== null && booksSearch.length <= 0) {
-	    bookUpdateShelf = books.filter(element => booksSearch.some(ele => ele.id === element.id))
-	    // console.log(bookUpdateShelf)
-	  }
-
-	  // books.forEach(element => booksSearch.map((ele) => {
-	  // if (element.id === ele.id) {
-	  // return bookUpdateShelf.push(element)
-	  // } return false
-	  // }))
-
 	  // if (!Array.isArray(booksSearch)) {
 	  // if (booksSearch !== undefined) {
 	  // console.log(booksSearch.error)
@@ -80,6 +68,20 @@ export default class Search extends Component {
 	  // } else if (Array.isArray(booksSearch).length > 0) {
 	  // console.log(booksSearch)
 	  // }
+
+	  // find the shelf share in the search and App
+	  if (booksSearch && booksSearch !== null && !booksSearch.error) {
+	    console.log(1)
+	    bookUpdateShelf = books.filter(element => booksSearch.some(ele => ele.id === element.id))
+	    console.log(bookUpdateShelf)
+	  }
+
+	  // books.forEach(element => booksSearch.map((ele) => {
+	  // if (element.id === ele.id) {
+	  // return bookUpdateShelf.push(element)
+	  // } return false
+	  // }))
+
 
 	  return (
 	    <div>
