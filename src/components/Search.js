@@ -23,11 +23,12 @@ export default class Search extends Component {
 
 
   componentDidMount() {
-    const { searchTerm } = this.state
+    // const { searchTerm } = this.state
+    // fixed a warning on setState with fetchSearchBook()
     if (this.input) {
       this.input.focus()
     }
-    this.fetchSearchBook(searchTerm)
+    // this.fetchSearchBook(searchTerm)
     // console.log('cdm', searchTerm)
     // console.log(booksSearch)
   }
