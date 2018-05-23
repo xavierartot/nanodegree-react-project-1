@@ -59,7 +59,7 @@ export default class Search extends Component {
 	     let bookUpdateShelf = []
 
 	  // find the shelf share in the search and App
-	  if (booksSearch && booksSearch !== null) {
+	  if (booksSearch && booksSearch !== null && booksSearch.length <= 0) {
 	    bookUpdateShelf = books.filter(element => booksSearch.some(ele => ele.id === element.id))
 	    // console.log(bookUpdateShelf)
 	  }
