@@ -56,22 +56,19 @@ export default class Search extends Component {
 	render() {
 	  const { booksSearch, error, searchTerm } = this.state,
 	    { books } = this.props
-	     const bookUpdateShelf = []
+	     let bookUpdateShelf = []
 
 	  // find the shelf share in the search and App
-	  if (booksSearch !== undefined && booksSearch !== null) {
-	    if (booksSearch) {
-	      books.forEach(element => booksSearch.map((ele) => {
-	        if (element.id === ele.id) {
-	          return bookUpdateShelf.push(element)
-	        } return false
-	      }))
-	      // bookUpdateShelf = books.map(element => element.id)
-	      // .filter(elementId =>
-	      // booksSearch.some(ele => ele.id === elementId))
-	    }
-	    console.log(bookUpdateShelf)
+	  if (booksSearch && booksSearch !== null) {
+	    bookUpdateShelf = books.filter(element => booksSearch.some(ele => ele.id === element.id))
+	    // console.log(bookUpdateShelf)
 	  }
+
+	  // books.forEach(element => booksSearch.map((ele) => {
+	  // if (element.id === ele.id) {
+	  // return bookUpdateShelf.push(element)
+	  // } return false
+	  // }))
 
 	  // if (!Array.isArray(booksSearch)) {
 	  // if (booksSearch !== undefined) {
