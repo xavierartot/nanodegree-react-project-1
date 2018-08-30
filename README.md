@@ -1,5 +1,7 @@
 # MyReads Project
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/xavierartot/nanodegree-react-project-1.svg)](https://greenkeeper.io/)
+
 This is the final assessment project for Udacity's React Fundamentals course. 
 We have a shelf book, it allow the user to add books by priority, such as
 I Want To Read, I Read, I'm Currently Reading.
